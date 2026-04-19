@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matteo Concio — Computer Engineering</title>
+    <title>Matteo Concio — Project Management &amp; Cybersecurity</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -22,14 +22,15 @@
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html { scroll-behavior: smooth; font-size: 17px; }
+        html { scroll-behavior: smooth; font-size: 16px; }
 
         body {
             font-family: var(--sans);
             background: var(--bg);
             color: var(--text);
-            line-height: 1.65;
+            line-height: 1.7;
             -webkit-font-smoothing: antialiased;
+            letter-spacing: 0.005em;
         }
 
         /* ── NAV ── */
@@ -44,8 +45,8 @@
         .nav-inner {
             max-width: 860px;
             margin: 0 auto;
-            padding: 0 24px;
-            height: 56px;
+            padding: 0 32px;
+            height: 52px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -53,27 +54,27 @@
 
         .nav-logo {
             font-family: var(--serif);
-            font-size: 1.15rem;
+            font-size: 1rem;
             font-weight: 500;
             color: var(--text);
             text-decoration: none;
-            letter-spacing: 0.01em;
+            letter-spacing: 0.02em;
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            gap: 32px;
+            gap: 28px;
         }
 
         nav a {
-            font-size: 0.82rem;
+            font-size: 0.75rem;
             font-weight: 500;
-            color: var(--muted);
+            color: var(--faint);
             text-decoration: none;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            transition: color 0.2s;
+            letter-spacing: 0.1em;
+            transition: color 0.15s;
         }
 
         nav a:hover { color: var(--text); }
@@ -87,109 +88,100 @@
 
         /* ── HERO ── */
         .hero {
-            padding: 80px 0 72px;
+            padding: 64px 0 56px;
             border-bottom: 1px solid var(--border);
         }
 
-        .hero-inner {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 48px;
-            align-items: center;
+        .hero-rule {
+            width: 32px;
+            height: 2px;
+            background: var(--text);
+            margin-bottom: 28px;
         }
 
         .hero-label {
-            font-size: 0.78rem;
+            font-size: 0.72rem;
             font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--muted);
-            margin-bottom: 16px;
+            letter-spacing: 0.14em;
+            color: var(--faint);
+            margin-bottom: 14px;
         }
 
         .hero h1 {
             font-family: var(--serif);
-            font-size: 3.2rem;
-            font-weight: 500;
-            line-height: 1.15;
+            font-size: 2.7rem;
+            font-weight: 400;
+            line-height: 1.18;
             letter-spacing: -0.01em;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             color: var(--text);
         }
 
         .hero-desc {
-            font-size: 1rem;
+            font-size: 0.94rem;
             color: var(--muted);
-            max-width: 480px;
-            line-height: 1.75;
+            max-width: 540px;
+            line-height: 1.8;
             margin-bottom: 28px;
         }
 
         .hero-links {
             display: flex;
-            gap: 20px;
+            gap: 24px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .hero-links a {
-            font-size: 0.82rem;
-            font-weight: 500;
+            font-size: 0.78rem;
+            font-weight: 400;
             color: var(--accent);
             text-decoration: none;
+            letter-spacing: 0.01em;
             border-bottom: 1px solid transparent;
-            transition: border-color 0.2s;
+            transition: border-color 0.15s;
         }
 
         .hero-links a:hover {
             border-bottom-color: var(--accent);
         }
 
-        .hero-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: var(--bg-soft);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-
-        .hero-avatar svg {
-            width: 56px;
-            height: 56px;
-            color: var(--faint);
+        .hero-divider {
+            width: 1px;
+            height: 14px;
+            background: var(--border);
         }
 
         /* ── SECTION ── */
         .section {
-            padding: 64px 0;
+            padding: 56px 0;
             border-bottom: 1px solid var(--border);
         }
 
         .section:last-of-type { border-bottom: none; }
 
         .section-header {
-            display: flex;
-            align-items: baseline;
-            gap: 16px;
-            margin-bottom: 40px;
+            margin-bottom: 36px;
+        }
+
+        .section-label {
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--faint);
+            margin-bottom: 6px;
         }
 
         .section-title {
             font-family: var(--serif);
-            font-size: 1.6rem;
-            font-weight: 500;
+            font-size: 1.45rem;
+            font-weight: 400;
             color: var(--text);
-            letter-spacing: -0.01em;
-        }
-
-        .section-line {
-            flex: 1;
-            height: 1px;
-            background: var(--border);
+            letter-spacing: 0em;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
         }
 
         /* ── ABOUT ── */
@@ -212,30 +204,33 @@
         .stats {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1px;
-            background: var(--border);
+            gap: 0;
             border: 1px solid var(--border);
         }
 
         .stat {
-            background: var(--bg);
-            padding: 24px 20px;
+            padding: 22px 20px;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
+
+        .stat:nth-child(2n) { border-right: none; }
+        .stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; }
 
         .stat-n {
             font-family: var(--serif);
-            font-size: 2.2rem;
-            font-weight: 500;
+            font-size: 1.9rem;
+            font-weight: 400;
             line-height: 1;
             color: var(--text);
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
 
         .stat-l {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--muted);
             text-transform: uppercase;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.08em;
         }
 
         /* ── TIMELINE (Education) ── */
@@ -500,16 +495,8 @@
             color: var(--faint);
         }
 
-        /* ── REVEAL ── */
-        .reveal {
-            opacity: 0;
-            transform: translateY(16px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* No scroll-reveal — straightforward document rendering */
+        .reveal { opacity: 1; transform: none; }
 
         /* ── RESPONSIVE ── */
         @media (max-width: 700px) {
@@ -550,34 +537,29 @@
 <div class="page">
 
 <section class="hero" aria-label="Introduction">
-    <div class="hero-inner">
-        <div>
-            <p class="hero-label">Computer Engineering Student</p>
-            <h1>Aspiring Project Manager<br>&amp; Cybersecurity Professional</h1>
-            <p class="hero-desc">
-                Computer Engineering student at UCAM Murcia, with international experience in Italy, Spain, and South Korea.
-                Focused on IT project management and cybersecurity, with a strong technical background in networking and databases.
-            </p>
-            <div class="hero-links">
-                <a href="https://www.linkedin.com/in/matteoconcio" target="_blank" rel="noopener">LinkedIn</a>
-                <a href="https://github.com/matteoconcio" target="_blank" rel="noopener">GitHub</a>
-                <a href="mailto:concio.matteo@outlook.it">concio.matteo@outlook.it</a>
-            </div>
-        </div>
-        <div class="hero-avatar" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-            </svg>
-        </div>
+    <div class="hero-rule"></div>
+    <p class="hero-label">Computer Engineering &nbsp;·&nbsp; Murcia, Spain</p>
+    <h1>Matteo Concio</h1>
+    <p class="hero-desc">
+        Aspiring Project Manager with a technical foundation in cybersecurity.
+        Computer Engineering student at UCAM Universidad Católica San Antonio de Murcia,
+        with research experience at Kyungpook National University, South Korea.
+        Certified by Cisco, Oracle, and Microsoft. Fluent in four languages.
+    </p>
+    <div class="hero-links">
+        <a href="https://www.linkedin.com/in/matteoconcio" target="_blank" rel="noopener">LinkedIn</a>
+        <span class="hero-divider" aria-hidden="true"></span>
+        <a href="https://github.com/matteoconcio" target="_blank" rel="noopener">GitHub</a>
+        <span class="hero-divider" aria-hidden="true"></span>
+        <a href="mailto:concio.matteo@outlook.it">concio.matteo@outlook.it</a>
     </div>
 </section>
 
 <!-- ── ABOUT ── -->
 <section class="section reveal" id="about">
     <div class="section-header">
+        <div class="section-label">01</div>
         <h2 class="section-title">About</h2>
-        <div class="section-line"></div>
     </div>
     <div class="about-cols">
         <div class="about-body">
@@ -618,8 +600,8 @@
 <!-- ── EDUCATION ── -->
 <section class="section reveal" id="education">
     <div class="section-header">
+        <div class="section-label">02</div>
         <h2 class="section-title">Education</h2>
-        <div class="section-line"></div>
     </div>
     <div class="timeline">
 
@@ -678,8 +660,8 @@
 <!-- ── EXPERIENCE ── -->
 <section class="section reveal" id="experience">
     <div class="section-header">
+        <div class="section-label">03</div>
         <h2 class="section-title">Experience</h2>
-        <div class="section-line"></div>
     </div>
 
     <div class="exp-item">
@@ -702,8 +684,8 @@
 <!-- ── CERTIFICATIONS ── -->
 <section class="section reveal" id="certifications">
     <div class="section-header">
+        <div class="section-label">04</div>
         <h2 class="section-title">Certifications</h2>
-        <div class="section-line"></div>
     </div>
     <table class="cert-table" aria-label="Certifications list">
         <tbody>
@@ -754,8 +736,8 @@
 <!-- ── SKILLS ── -->
 <section class="section reveal" id="skills">
     <div class="section-header">
+        <div class="section-label">05</div>
         <h2 class="section-title">Skills</h2>
-        <div class="section-line"></div>
     </div>
     <div class="skills-grid">
         <div>
@@ -794,27 +776,27 @@
 <!-- ── LANGUAGES ── -->
 <section class="section reveal" id="languages">
     <div class="section-header">
+        <div class="section-label">06</div>
         <h2 class="section-title">Languages</h2>
-        <div class="section-line"></div>
     </div>
     <div class="lang-list">
         <div class="lang-item">
-            <span class="lang-name">🇮🇹 Italian</span>
+            <span class="lang-name">Italian</span>
             <div class="lang-bar-wrap"><div class="lang-bar-fill" style="width:100%"></div></div>
             <span class="lang-level">Native</span>
         </div>
         <div class="lang-item">
-            <span class="lang-name">🇬🇧 English</span>
+            <span class="lang-name">English</span>
             <div class="lang-bar-wrap"><div class="lang-bar-fill" style="width:88%"></div></div>
-            <span class="lang-level">Full Professional — IELTS C1</span>
+            <span class="lang-level">Full Professional &mdash; IELTS C1</span>
         </div>
         <div class="lang-item">
-            <span class="lang-name">🇫🇷 French</span>
+            <span class="lang-name">French</span>
             <div class="lang-bar-wrap"><div class="lang-bar-fill" style="width:82%"></div></div>
             <span class="lang-level">Full Professional Proficiency</span>
         </div>
         <div class="lang-item">
-            <span class="lang-name">🇪🇸 Spanish</span>
+            <span class="lang-name">Spanish</span>
             <div class="lang-bar-wrap"><div class="lang-bar-fill" style="width:68%"></div></div>
             <span class="lang-level">Professional Working Proficiency</span>
         </div>
@@ -824,12 +806,12 @@
 <!-- ── CONTACT ── -->
 <section class="section reveal" id="contact">
     <div class="section-header">
+        <div class="section-label">07</div>
         <h2 class="section-title">Contact</h2>
-        <div class="section-line"></div>
     </div>
-    <p style="font-size:0.95rem; color:var(--muted); margin-bottom:24px; max-width:520px; line-height:1.75;">
-        I am open to opportunities in project management, cybersecurity, and IT leadership.
-        Please feel free to reach out via any of the channels below.
+    <p style="font-size:0.9rem; color:var(--muted); margin-bottom:28px; max-width:500px; line-height:1.85;">
+        I welcome enquiries regarding opportunities in project management, cybersecurity,
+        and IT leadership. Please do not hesitate to contact me through the channels listed below.
     </p>
     <div class="contact-row">
         <a class="contact-link" href="mailto:concio.matteo@outlook.it">concio.matteo@outlook.it</a>
@@ -850,12 +832,6 @@
 </footer>
 
 <script>
-    // Scroll reveal
-    const io = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
     // Courses toggle
     function toggleCourses(id) {
         const el = document.getElementById(id);
