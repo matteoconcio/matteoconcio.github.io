@@ -9,23 +9,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg:        #f1f4f9;
-            --card:      #ffffff;
-            --hero-bg:   #08081a;
-            --text:      #0f172a;
-            --muted:     #475569;
-            --faint:     #94a3b8;
-            --border:    #e2e8f0;
-            --indigo:    #6366f1;
-            --violet:    #8b5cf6;
-            --gradient:  linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            --sans:      'Inter', system-ui, sans-serif;
-            --display:   'Space Grotesk', system-ui, sans-serif;
+            --sidebar-bg:     #0c0d18;
+            --sidebar-muted:  #4b5563;
+            --sidebar-faint:  #374151;
+            --sidebar-accent: #818cf8;
+            --sidebar-w:      272px;
+
+            --bg:       #ffffff;
+            --bg-soft:  #f8fafc;
+            --text:     #0f172a;
+            --muted:    #475569;
+            --faint:    #94a3b8;
+            --border:   #e2e8f0;
+            --indigo:   #6366f1;
+            --violet:   #8b5cf6;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --sans:     'Inter', system-ui, sans-serif;
+            --display:  'Space Grotesk', system-ui, sans-serif;
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; font-size: 16px; }
-
+        html { font-size: 16px; scroll-behavior: smooth; }
         body {
             font-family: var(--sans);
             background: var(--bg);
@@ -34,235 +38,229 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ── NAV ── */
-        header {
-            position: sticky;
-            top: 0;
+        /* ── SIDEBAR ── */
+        .sidebar {
+            position: fixed;
+            top: 0; left: 0;
+            width: var(--sidebar-w);
+            height: 100vh;
+            background: var(--sidebar-bg);
+            display: flex;
+            flex-direction: column;
+            padding: 44px 28px 36px;
             z-index: 100;
-            background: rgba(255,255,255,0.9);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-bottom: 1px solid var(--border);
+            overflow-y: auto;
         }
 
-        .nav-inner {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 32px;
-            height: 56px;
+        .sidebar-name {
+            font-family: var(--display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+            line-height: 1.25;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--sidebar-accent);
+            line-height: 1.6;
+            margin-bottom: 6px;
+        }
+
+        .sidebar-location {
+            font-size: 0.74rem;
+            color: var(--sidebar-muted);
+            margin-bottom: 36px;
+        }
+
+        .sidebar-divider {
+            width: 100%;
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+            margin-bottom: 28px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 1;
+        }
+
+        .sidebar-nav a {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-        }
-
-        .nav-logo {
-            font-family: var(--display);
-            font-size: 0.97rem;
-            font-weight: 600;
-            color: var(--text);
-            text-decoration: none;
-            letter-spacing: -0.01em;
-        }
-
-        nav ul { list-style: none; display: flex; gap: 28px; }
-
-        nav a {
-            font-size: 0.75rem;
+            gap: 12px;
+            font-size: 0.78rem;
             font-weight: 500;
-            color: var(--faint);
+            color: var(--sidebar-muted);
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 0.09em;
-            transition: color 0.15s;
+            padding: 9px 12px;
+            border-radius: 8px;
+            transition: background 0.15s, color 0.15s;
         }
-        nav a:hover { color: var(--indigo); }
+        .sidebar-nav a:hover {
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+        }
+
+        .nav-num {
+            font-size: 0.62rem;
+            color: rgba(255,255,255,0.18);
+            font-weight: 700;
+            min-width: 16px;
+            font-family: var(--display);
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 28px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar-link {
+            font-size: 0.74rem;
+            color: var(--sidebar-muted);
+            text-decoration: none;
+            transition: color 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .sidebar-link:hover { color: var(--sidebar-accent); }
+
+        /* ── MAIN ── */
+        .main { margin-left: var(--sidebar-w); }
 
         /* ── HERO ── */
         .hero {
-            background: var(--hero-bg);
-            background-image:
-                radial-gradient(ellipse 70% 65% at 10% 55%, rgba(99,102,241,0.22) 0%, transparent 65%),
-                radial-gradient(ellipse 55% 60% at 88% 20%, rgba(139,92,246,0.16) 0%, transparent 65%),
-                radial-gradient(ellipse 40% 50% at 55% 90%, rgba(99,102,241,0.1) 0%, transparent 60%);
-            padding: 88px 0 80px;
+            padding: 68px 60px 56px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-soft);
+            position: relative;
+            overflow: hidden;
         }
 
-        .hero-pill {
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -80px; right: -80px;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(99,102,241,0.07) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(99,102,241,0.12);
-            border: 1px solid rgba(99,102,241,0.3);
-            border-radius: 999px;
-            padding: 5px 16px;
-            font-size: 0.7rem;
-            font-weight: 600;
+            font-size: 0.68rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.12em;
-            color: #a5b4fc;
-            margin-bottom: 32px;
+            color: var(--indigo);
+            background: rgba(99,102,241,0.08);
+            border: 1px solid rgba(99,102,241,0.2);
+            padding: 4px 14px;
+            border-radius: 99px;
+            margin-bottom: 24px;
         }
 
         .hero h1 {
             font-family: var(--display);
-            font-size: 3.4rem;
+            font-size: 2.8rem;
             font-weight: 700;
-            line-height: 1.1;
             letter-spacing: -0.04em;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-
-        .hero-tagline {
-            font-family: var(--display);
-            font-size: 1.15rem;
-            font-weight: 400;
-            background: linear-gradient(135deg, #a5b4fc 0%, #c4b5fd 60%, #ddd6fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 26px;
-            letter-spacing: -0.01em;
+            line-height: 1.12;
+            color: var(--text);
+            margin-bottom: 22px;
+            max-width: 640px;
         }
 
         .hero-desc {
             font-size: 0.95rem;
-            color: #94a3b8;
-            max-width: 520px;
+            color: var(--muted);
+            max-width: 580px;
             line-height: 1.9;
-            margin-bottom: 40px;
         }
 
-        .hero-links {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
+        /* ── CONTENT ── */
+        .content { padding: 0 60px; }
 
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--gradient);
-            color: #fff;
-            font-size: 0.83rem;
-            font-weight: 500;
-            text-decoration: none;
-            padding: 10px 22px;
-            border-radius: 9px;
-            transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 16px rgba(99,102,241,0.35);
+        /* ── SECTION ── */
+        .section {
+            padding: 52px 0;
+            border-bottom: 1px solid var(--border);
         }
-        .btn-primary:hover {
-            opacity: 0.92;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(99,102,241,0.45);
-        }
+        .section:last-of-type { border-bottom: none; }
 
-        .btn-ghost {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.14);
-            color: #cbd5e1;
-            font-size: 0.83rem;
-            font-weight: 500;
-            text-decoration: none;
-            padding: 10px 22px;
-            border-radius: 9px;
-            transition: background 0.2s, transform 0.2s;
-        }
-        .btn-ghost:hover {
-            background: rgba(255,255,255,0.11);
-            transform: translateY(-2px);
-        }
-
-        /* ── PAGE LAYOUT ── */
-        .page {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 32px;
-        }
-
-        /* ── SECTIONS ── */
-        .section { padding: 60px 0; }
-        .section + .section { border-top: 1px solid var(--border); }
-
-        .section-header {
-            display: flex;
-            align-items: baseline;
-            gap: 12px;
-            margin-bottom: 40px;
-        }
-
-        .section-num {
-            font-family: var(--display);
-            font-size: 0.72rem;
+        .section-eyebrow {
+            font-size: 0.65rem;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            letter-spacing: 0.05em;
+            margin-bottom: 5px;
         }
 
         .section-title {
             font-family: var(--display);
-            font-size: 1.45rem;
+            font-size: 1.3rem;
             font-weight: 600;
             color: var(--text);
             letter-spacing: -0.025em;
+            margin-bottom: 30px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
         }
 
         /* ── ABOUT ── */
-        .about-cols {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 48px;
-            align-items: start;
-        }
-
         .about-body {
-            font-size: 0.95rem;
+            font-size: 0.94rem;
             color: var(--muted);
-            line-height: 1.85;
+            line-height: 1.9;
+            max-width: 660px;
+            margin-bottom: 32px;
         }
         .about-body p + p { margin-top: 14px; }
         .about-body strong { color: var(--text); font-weight: 600; }
 
         .stats {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            grid-template-columns: repeat(4, 1fr);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
         }
 
         .stat {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 22px 20px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
+            padding: 22px 18px;
+            border-right: 1px solid var(--border);
+            transition: background 0.15s;
         }
-        .stat:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(99,102,241,0.1);
-        }
-        .stat::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 3px;
-            background: var(--gradient);
-            border-radius: 14px 14px 0 0;
-        }
+        .stat:last-child { border-right: none; }
+        .stat:hover { background: var(--bg-soft); }
 
         .stat-n {
             font-family: var(--display);
-            font-size: 2.1rem;
+            font-size: 2rem;
             font-weight: 700;
             background: var(--gradient);
             -webkit-background-clip: text;
@@ -273,7 +271,7 @@
         }
 
         .stat-l {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             color: var(--faint);
             text-transform: uppercase;
             letter-spacing: 0.09em;
@@ -284,28 +282,28 @@
 
         .tl-item {
             display: grid;
-            grid-template-columns: 168px 1fr;
+            grid-template-columns: 150px 1fr;
             gap: 24px;
-            padding: 26px 0;
+            padding: 24px 0;
             border-bottom: 1px solid var(--border);
         }
         .tl-item:last-child { border-bottom: none; }
 
         .tl-date {
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             color: var(--faint);
             padding-top: 3px;
             line-height: 1.65;
         }
 
         .tl-school {
-            font-size: 0.96rem;
+            font-size: 0.94rem;
             font-weight: 600;
             color: var(--text);
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
         .tl-degree {
-            font-size: 0.86rem;
+            font-size: 0.84rem;
             color: var(--muted);
             margin-bottom: 10px;
         }
@@ -315,7 +313,7 @@
             border: none;
             padding: 0;
             font-family: var(--sans);
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             font-weight: 500;
             color: var(--indigo);
             cursor: pointer;
@@ -325,49 +323,49 @@
 
         .tl-courses {
             display: none;
-            margin-top: 12px;
-            font-size: 0.82rem;
+            margin-top: 10px;
+            font-size: 0.81rem;
             color: var(--muted);
             line-height: 1.75;
-            padding: 12px 16px;
+            padding: 11px 15px;
             background: rgba(99,102,241,0.04);
             border-left: 2px solid var(--indigo);
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 6px 6px 0;
         }
         .tl-courses.open { display: block; }
 
         /* ── EXPERIENCE ── */
         .exp-item {
             display: grid;
-            grid-template-columns: 168px 1fr;
+            grid-template-columns: 150px 1fr;
             gap: 24px;
-            padding: 26px 0;
+            padding: 24px 0;
             border-bottom: 1px solid var(--border);
         }
         .exp-item:last-child { border-bottom: none; }
 
-        .exp-meta { font-size: 0.78rem; color: var(--faint); line-height: 1.65; }
+        .exp-meta { font-size: 0.75rem; color: var(--faint); line-height: 1.65; }
 
         .exp-company {
-            font-size: 0.96rem;
+            font-size: 0.94rem;
             font-weight: 600;
             color: var(--text);
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
         .exp-role {
-            font-size: 0.86rem;
+            font-size: 0.84rem;
             color: var(--indigo);
-            margin-bottom: 12px;
             font-weight: 500;
+            margin-bottom: 11px;
         }
 
         .exp-list { list-style: none; padding: 0; }
         .exp-list li {
-            font-size: 0.87rem;
+            font-size: 0.86rem;
             color: var(--muted);
-            padding-left: 18px;
+            padding-left: 16px;
             position: relative;
-            margin-bottom: 7px;
+            margin-bottom: 6px;
             line-height: 1.65;
         }
         .exp-list li::before {
@@ -375,39 +373,36 @@
             position: absolute;
             left: 0;
             color: var(--indigo);
-            font-size: 0.75rem;
-            top: 2px;
+            font-size: 0.72rem;
+            top: 3px;
         }
 
         /* ── CERTIFICATIONS ── */
-        .cert-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+        .cert-table { width: 100%; border-collapse: collapse; }
         .cert-table tr {
             border-bottom: 1px solid var(--border);
-            transition: background 0.15s;
+            transition: background 0.12s;
         }
-        .cert-table tr:hover { background: rgba(99,102,241,0.03); }
+        .cert-table tr:hover { background: var(--bg-soft); }
         .cert-table td {
-            padding: 15px 12px;
-            font-size: 0.88rem;
+            padding: 13px 10px;
+            font-size: 0.86rem;
             vertical-align: middle;
         }
         .cert-table td:first-child { padding-left: 0; }
         .cert-table td:last-child  { padding-right: 0; text-align: right; }
 
         .cert-name { font-weight: 500; color: var(--text); }
-        .cert-date { color: var(--faint); white-space: nowrap; font-size: 0.82rem; }
+        .cert-date { color: var(--faint); white-space: nowrap; font-size: 0.79rem; }
 
         .cert-tag {
             display: inline-block;
-            font-size: 0.67rem;
+            font-size: 0.64rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            padding: 3px 9px;
-            border-radius: 6px;
+            padding: 3px 8px;
+            border-radius: 5px;
             white-space: nowrap;
         }
         .tag-cisco     { background: #ecfdf5; color: #065f46; }
@@ -419,27 +414,23 @@
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
         }
 
-        .skill-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 26px 22px;
-            transition: transform 0.22s, box-shadow 0.22s;
+        .skill-col {
+            padding: 24px 22px;
+            border-right: 1px solid var(--border);
         }
-        .skill-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 36px rgba(99,102,241,0.12);
-        }
+        .skill-col:last-child { border-right: none; }
 
         .skill-group-title {
             font-family: var(--display);
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.09em;
+            letter-spacing: 0.1em;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -451,11 +442,11 @@
 
         .skill-list { list-style: none; }
         .skill-list li {
-            font-size: 0.87rem;
+            font-size: 0.85rem;
             color: var(--muted);
             padding: 7px 0;
-            border-bottom: 1px solid var(--bg);
-            line-height: 1.45;
+            border-bottom: 1px solid var(--bg-soft);
+            line-height: 1.4;
         }
         .skill-list li:last-child { border-bottom: none; }
 
@@ -464,22 +455,22 @@
 
         .lang-item {
             display: grid;
-            grid-template-columns: 160px 1fr auto;
+            grid-template-columns: 140px 1fr auto;
             align-items: center;
             gap: 24px;
-            padding: 18px 0;
+            padding: 16px 0;
             border-bottom: 1px solid var(--border);
         }
         .lang-item:last-child { border-bottom: none; }
 
         .lang-name {
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 500;
             color: var(--text);
         }
 
         .lang-bar-wrap {
-            height: 4px;
+            height: 3px;
             background: var(--border);
             border-radius: 99px;
             overflow: hidden;
@@ -488,24 +479,23 @@
             height: 100%;
             background: var(--gradient);
             border-radius: 99px;
-            transition: width 1s ease;
         }
 
         .lang-level {
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             color: var(--faint);
             text-align: right;
             white-space: nowrap;
-            min-width: 145px;
+            min-width: 148px;
         }
 
         /* ── CONTACT ── */
-        .contact-cta {
+        .contact-desc {
             font-size: 0.93rem;
             color: var(--muted);
-            max-width: 500px;
+            max-width: 520px;
             line-height: 1.9;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
         }
 
         .contact-row {
@@ -520,32 +510,32 @@
             gap: 6px;
             background: var(--gradient);
             color: #fff;
-            font-size: 0.85rem;
+            font-size: 0.84rem;
             font-weight: 500;
             text-decoration: none;
-            padding: 11px 26px;
-            border-radius: 10px;
+            padding: 11px 24px;
+            border-radius: 9px;
             transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 16px rgba(99,102,241,0.3);
+            box-shadow: 0 4px 14px rgba(99,102,241,0.28);
         }
         .contact-btn-primary:hover {
-            opacity: 0.91;
+            opacity: 0.9;
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(99,102,241,0.42);
+            box-shadow: 0 8px 22px rgba(99,102,241,0.38);
         }
 
         .contact-btn-ghost {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: var(--card);
+            background: var(--bg);
             border: 1px solid var(--border);
             color: var(--muted);
-            font-size: 0.85rem;
+            font-size: 0.84rem;
             font-weight: 500;
             text-decoration: none;
-            padding: 11px 26px;
-            border-radius: 10px;
+            padding: 11px 24px;
+            border-radius: 9px;
             transition: border-color 0.2s, color 0.2s, transform 0.2s;
         }
         .contact-btn-ghost:hover {
@@ -556,359 +546,364 @@
 
         /* ── FOOTER ── */
         footer {
-            background: var(--hero-bg);
-            background-image:
-                radial-gradient(ellipse 80% 60% at 50% 110%, rgba(99,102,241,0.1) 0%, transparent 65%);
+            margin-left: var(--sidebar-w);
+            background: var(--bg-soft);
+            border-top: 1px solid var(--border);
         }
 
         .footer-inner {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 30px 32px;
+            padding: 24px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.78rem;
-            color: #475569;
+            font-size: 0.75rem;
+            color: var(--faint);
         }
 
         /* ── SCROLL REVEAL ── */
         .reveal {
             opacity: 0;
-            transform: translateY(22px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(16px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
         }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
 
         /* ── RESPONSIVE ── */
-        @media (max-width: 700px) {
-            .hero h1 { font-size: 2.5rem; }
-            .hero-tagline { font-size: 0.97rem; }
-            .about-cols { grid-template-columns: 1fr; }
+        @media (max-width: 860px) {
+            .sidebar {
+                position: fixed;
+                width: 100%;
+                height: 52px;
+                flex-direction: row;
+                align-items: center;
+                padding: 0 20px;
+                overflow: visible;
+                gap: 0;
+            }
+            .sidebar-name { font-size: 0.95rem; margin-bottom: 0; white-space: nowrap; }
+            .sidebar-title, .sidebar-location,
+            .sidebar-divider, .sidebar-footer { display: none; }
+            .sidebar-nav {
+                flex-direction: row;
+                gap: 0;
+                flex: 1;
+                justify-content: flex-end;
+                overflow-x: auto;
+            }
+            .sidebar-nav a { padding: 6px 9px; font-size: 0.68rem; }
+            .nav-num { display: none; }
+
+            .main  { margin-left: 0; margin-top: 52px; }
+            footer { margin-left: 0; }
+            .hero  { padding: 36px 22px 32px; }
+            .hero h1 { font-size: 2rem; }
+            .content { padding: 0 22px; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .stat:nth-child(2) { border-right: none; }
+            .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--border); }
             .tl-item, .exp-item { grid-template-columns: 1fr; gap: 4px; }
             .skills-grid { grid-template-columns: 1fr; }
-            .lang-item { grid-template-columns: 1fr; gap: 8px; }
-            nav ul { display: none; }
+            .skill-col { border-right: none; border-bottom: 1px solid var(--border); }
+            .skill-col:last-child { border-bottom: none; }
+            .lang-item { grid-template-columns: 1fr; gap: 7px; }
+            .lang-level { text-align: left; min-width: 0; }
             .cert-table .cert-tag { display: none; }
-            .stats { grid-template-columns: 1fr 1fr; }
-            .page { padding: 0 20px; }
-            .nav-inner { padding: 0 20px; }
+            .footer-inner { padding: 18px 22px; }
         }
     </style>
 </head>
 <body>
 
-<!-- ── HEADER ── -->
-<header>
-    <div class="nav-inner">
-        <a class="nav-logo" href="#">Matteo Concio</a>
-        <nav aria-label="Primary navigation">
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#certifications">Certifications</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-
-<!-- ── HERO ── -->
-<section class="hero" aria-label="Introduction">
-    <div class="page">
-        <div class="hero-pill">Computer Engineering &nbsp;·&nbsp; Murcia, Spain</div>
-        <h1>Matteo Concio</h1>
-        <p class="hero-tagline">Project Management &amp; Cybersecurity</p>
-        <p class="hero-desc">
-            Aspiring Project Manager with a technical foundation in cybersecurity.
-            Computer Engineering student at UCAM, with research experience at
-            Kyungpook National University, South Korea.
-            Certified by Cisco, Oracle, and Microsoft. Fluent in four languages.
-        </p>
-        <div class="hero-links">
-            <a class="btn-primary" href="https://www.linkedin.com/in/matteoconcio" target="_blank" rel="noopener">LinkedIn</a>
-            <a class="btn-ghost" href="https://github.com/matteoconcio" target="_blank" rel="noopener">GitHub</a>
-            <a class="btn-ghost" href="mailto:concio.matteo@outlook.it">concio.matteo@outlook.it</a>
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+    <div class="sidebar-name">Matteo<br>Concio</div>
+    <div class="sidebar-title">Project Management<br>&amp; Cybersecurity</div>
+    <div class="sidebar-location">Murcia, Spain</div>
+    <div class="sidebar-divider"></div>
+    <ul class="sidebar-nav">
+        <li><a href="#about"><span class="nav-num">01</span>About</a></li>
+        <li><a href="#education"><span class="nav-num">02</span>Education</a></li>
+        <li><a href="#experience"><span class="nav-num">03</span>Experience</a></li>
+        <li><a href="#certifications"><span class="nav-num">04</span>Certifications</a></li>
+        <li><a href="#skills"><span class="nav-num">05</span>Skills</a></li>
+        <li><a href="#languages"><span class="nav-num">06</span>Languages</a></li>
+        <li><a href="#contact"><span class="nav-num">07</span>Contact</a></li>
+    </ul>
+    <div class="sidebar-footer">
+        <div class="sidebar-links">
+            <a class="sidebar-link" href="https://www.linkedin.com/in/matteoconcio" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a class="sidebar-link" href="https://github.com/matteoconcio" target="_blank" rel="noopener">GitHub ↗</a>
+            <a class="sidebar-link" href="mailto:concio.matteo@outlook.it">concio.matteo@outlook.it</a>
         </div>
     </div>
-</section>
+</aside>
 
 <!-- ── MAIN ── -->
-<main>
-<div class="page">
+<div class="main">
 
-<!-- ── ABOUT ── -->
-<section class="section reveal" id="about">
-    <div class="section-header">
-        <span class="section-num">01</span>
-        <h2 class="section-title">About</h2>
+    <div class="hero">
+        <div class="hero-eyebrow">Computer Engineering</div>
+        <h1>Aspiring Project Manager with a technical edge in cybersecurity.</h1>
+        <p class="hero-desc">
+            Computer Engineering student at UCAM Universidad Católica San Antonio de Murcia,
+            with research experience at Kyungpook National University, South Korea.
+            Certified by Cisco, Oracle, and Microsoft. Fluent in four languages.
+        </p>
     </div>
-    <div class="about-cols">
-        <div class="about-body">
-            <p>
-                I am a <strong>Computer Engineering</strong> student at UCAM Universidad Católica San Antonio de Murcia,
-                with a solid international academic background. I completed a research exchange at
-                <strong>Kyungpook National University</strong> in South Korea, where I studied IT Engineering
-                with a focus on information security and systems.
-            </p>
-            <p>
-                My professional interests lie at the intersection of <strong>project management</strong> and
-                <strong>cybersecurity</strong>. I aim to lead IT initiatives by combining rigorous technical knowledge
-                with strong organisational and cross-cultural communication skills developed across three countries
-                and four languages.
-            </p>
-        </div>
-        <div class="stats">
-            <div class="stat">
-                <div class="stat-n">8</div>
-                <div class="stat-l">Certifications</div>
-            </div>
-            <div class="stat">
-                <div class="stat-n">4</div>
-                <div class="stat-l">Languages</div>
-            </div>
-            <div class="stat">
-                <div class="stat-n">3</div>
-                <div class="stat-l">Countries</div>
-            </div>
-            <div class="stat">
-                <div class="stat-n">2</div>
-                <div class="stat-l">Specialisations</div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- ── EDUCATION ── -->
-<section class="section reveal" id="education">
-    <div class="section-header">
-        <span class="section-num">02</span>
-        <h2 class="section-title">Education</h2>
-    </div>
-    <div class="timeline">
+    <div class="content">
 
-        <div class="tl-item">
-            <div class="tl-date">2024 — 2027</div>
-            <div class="tl-body">
-                <div class="tl-school">UCAM Universidad Católica San Antonio de Murcia</div>
-                <div class="tl-degree">Computer Engineering — Murcia, Spain</div>
+        <!-- ── ABOUT ── -->
+        <section class="section reveal" id="about">
+            <div class="section-eyebrow">01</div>
+            <h2 class="section-title">About</h2>
+            <div class="about-body">
+                <p>
+                    I am a <strong>Computer Engineering</strong> student at UCAM Universidad Católica San Antonio de Murcia,
+                    with a solid international academic background. I completed a research exchange at
+                    <strong>Kyungpook National University</strong> in South Korea, where I studied IT Engineering
+                    with a focus on information security and systems.
+                </p>
+                <p>
+                    My professional interests lie at the intersection of <strong>project management</strong> and
+                    <strong>cybersecurity</strong>. I aim to lead IT initiatives by combining rigorous technical knowledge
+                    with strong organisational and cross-cultural communication skills developed across three countries
+                    and four languages.
+                </p>
             </div>
-        </div>
-
-        <div class="tl-item">
-            <div class="tl-date">Aug 2025 — Jan 2026</div>
-            <div class="tl-body">
-                <div class="tl-school">Kyungpook National University (KNU)</div>
-                <div class="tl-degree">Exchange Student &amp; Researcher — IT Engineering, Daegu, South Korea</div>
-                <button class="tl-toggle" onclick="toggleCourses('knu')">View relevant courses ↓</button>
-                <div class="tl-courses" id="knu">
-                    Information Security · Digital Control Systems · Financial Futures Engineering ·
-                    Database Management Systems · Algorithms · Automatic Control
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-n">8</div>
+                    <div class="stat-l">Certifications</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-n">4</div>
+                    <div class="stat-l">Languages</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-n">3</div>
+                    <div class="stat-l">Countries</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-n">2</div>
+                    <div class="stat-l">Specialisations</div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="tl-item">
-            <div class="tl-date">Jan 2024 — Jul 2024</div>
-            <div class="tl-body">
-                <div class="tl-school">UCAM (Exchange Semester)</div>
-                <div class="tl-degree">Exchange Student — Computer Engineering, Murcia, Spain</div>
-                <button class="tl-toggle" onclick="toggleCourses('ucam')">View relevant courses ↓</button>
-                <div class="tl-courses" id="ucam">
-                    Operating Systems · Computer Networking · Advanced Visual Programming · Software Engineering
+        <!-- ── EDUCATION ── -->
+        <section class="section reveal" id="education">
+            <div class="section-eyebrow">02</div>
+            <h2 class="section-title">Education</h2>
+            <div class="timeline">
+
+                <div class="tl-item">
+                    <div class="tl-date">2024 — 2027</div>
+                    <div class="tl-body">
+                        <div class="tl-school">UCAM Universidad Católica San Antonio de Murcia</div>
+                        <div class="tl-degree">Computer Engineering — Murcia, Spain</div>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-date">Aug 2025 — Jan 2026</div>
+                    <div class="tl-body">
+                        <div class="tl-school">Kyungpook National University (KNU)</div>
+                        <div class="tl-degree">Exchange Student &amp; Researcher — IT Engineering, Daegu, South Korea</div>
+                        <button class="tl-toggle" onclick="toggleCourses('knu')">View relevant courses ↓</button>
+                        <div class="tl-courses" id="knu">
+                            Information Security · Digital Control Systems · Financial Futures Engineering ·
+                            Database Management Systems · Algorithms · Automatic Control
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-date">Jan 2024 — Jul 2024</div>
+                    <div class="tl-body">
+                        <div class="tl-school">UCAM (Exchange Semester)</div>
+                        <div class="tl-degree">Exchange Student — Computer Engineering, Murcia, Spain</div>
+                        <button class="tl-toggle" onclick="toggleCourses('ucam')">View relevant courses ↓</button>
+                        <div class="tl-courses" id="ucam">
+                            Operating Systems · Computer Networking · Advanced Visual Programming · Software Engineering
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-date">Sep 2021 — Dec 2023</div>
+                    <div class="tl-body">
+                        <div class="tl-school">Università degli Studi di Modena e Reggio Emilia</div>
+                        <div class="tl-degree">Computer Engineering — Modena, Italy</div>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-date">Sep 2016 — Jun 2021</div>
+                    <div class="tl-body">
+                        <div class="tl-school">Liceo Scientifico M. Pantani</div>
+                        <div class="tl-degree">Scientific High School Diploma — Mathematics, Physics &amp; Computer Science</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── EXPERIENCE ── -->
+        <section class="section reveal" id="experience">
+            <div class="section-eyebrow">03</div>
+            <h2 class="section-title">Experience</h2>
+
+            <div class="exp-item">
+                <div class="exp-meta">
+                    Jun 2022 — Aug 2022<br>
+                    Modena, Italy
+                </div>
+                <div>
+                    <div class="exp-company">Vodafone</div>
+                    <div class="exp-role">Sales Associate</div>
+                    <ul class="exp-list">
+                        <li>Assisted private and business clients in identifying and selecting appropriate telecommunications plans, applying consultative sales techniques.</li>
+                        <li>Managed customer relationships through the full sales cycle, from initial consultation to after-sales support.</li>
+                    </ul>
                 </div>
             </div>
-        </div>
 
-        <div class="tl-item">
-            <div class="tl-date">Sep 2021 — Dec 2023</div>
-            <div class="tl-body">
-                <div class="tl-school">Università degli Studi di Modena e Reggio Emilia</div>
-                <div class="tl-degree">Computer Engineering — Modena, Italy</div>
+        </section>
+
+        <!-- ── CERTIFICATIONS ── -->
+        <section class="section reveal" id="certifications">
+            <div class="section-eyebrow">04</div>
+            <h2 class="section-title">Certifications</h2>
+            <table class="cert-table" aria-label="Certifications list">
+                <tbody>
+                    <tr>
+                        <td><span class="cert-tag tag-british">British Council</span></td>
+                        <td><span class="cert-name">IELTS C1</span></td>
+                        <td><span class="cert-date">Apr 2026</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="cert-tag tag-cisco">Cisco</span></td>
+                        <td><span class="cert-name">CCNA: Enterprise Networking, Security &amp; Automation</span></td>
+                        <td><span class="cert-date">Feb 2026</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="cert-tag tag-oracle">Oracle</span></td>
+                        <td><span class="cert-name">Database: Develop PL/SQL Program Units</span></td>
+                        <td><span class="cert-date">Nov 2025</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="cert-tag tag-oracle">Oracle</span></td>
+                        <td><span class="cert-name">Database: PL/SQL Fundamentals</span></td>
+                        <td><span class="cert-date">Nov 2025</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="cert-tag tag-oracle">Oracle</span></td>
+                        <td><span class="cert-name">Data Modeling &amp; Relational Database Design</span></td>
+                        <td><span class="cert-date">Nov 2025</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="cert-tag tag-oracle">Oracle</span></td>
+                        <td><span class="cert-name">Database: SQL Fundamentals</span></td>
+                        <td><span class="cert-date">Mar 2025</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="cert-tag tag-microsoft">Microsoft</span></td>
+                        <td><span class="cert-name">Software Development Fundamentals</span></td>
+                        <td><span class="cert-date">Nov 2024</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="cert-tag tag-cisco">Cisco</span></td>
+                        <td><span class="cert-name">CCNA: Introduction to Networks</span></td>
+                        <td><span class="cert-date">Sep 2024</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ── SKILLS ── -->
+        <section class="section reveal" id="skills">
+            <div class="section-eyebrow">05</div>
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-col">
+                    <div class="skill-group-title">Project Management</div>
+                    <ul class="skill-list">
+                        <li>Team Coordination</li>
+                        <li>Stakeholder Communication</li>
+                        <li>Risk Management</li>
+                        <li>Agile Methodologies</li>
+                        <li>Cross-cultural Collaboration</li>
+                    </ul>
+                </div>
+                <div class="skill-col">
+                    <div class="skill-group-title">Cybersecurity</div>
+                    <ul class="skill-list">
+                        <li>Network Security</li>
+                        <li>Network Automation</li>
+                        <li>Cisco CCNA</li>
+                        <li>Information Security</li>
+                        <li>Security Policies &amp; Compliance</li>
+                    </ul>
+                </div>
+                <div class="skill-col">
+                    <div class="skill-group-title">Technical</div>
+                    <ul class="skill-list">
+                        <li>SQL &amp; PL/SQL</li>
+                        <li>Oracle Database</li>
+                        <li>C# &amp; OOP</li>
+                        <li>Linux</li>
+                        <li>Software Development</li>
+                    </ul>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <div class="tl-item">
-            <div class="tl-date">Sep 2016 — Jun 2021</div>
-            <div class="tl-body">
-                <div class="tl-school">Liceo Scientifico M. Pantani</div>
-                <div class="tl-degree">Scientific High School Diploma — Mathematics, Physics &amp; Computer Science</div>
+        <!-- ── LANGUAGES ── -->
+        <section class="section reveal" id="languages">
+            <div class="section-eyebrow">06</div>
+            <h2 class="section-title">Languages</h2>
+            <div class="lang-list">
+                <div class="lang-item">
+                    <span class="lang-name">Italian</span>
+                    <div class="lang-bar-wrap"><div class="lang-bar-fill" style="width:100%"></div></div>
+                    <span class="lang-level">Native</span>
+                </div>
+                <div class="lang-item">
+                    <span class="lang-name">English</span>
+                    <div class="lang-bar-wrap"><div class="lang-bar-fill" style="width:88%"></div></div>
+                    <span class="lang-level">Full Professional &mdash; IELTS C1</span>
+                </div>
+                <div class="lang-item">
+                    <span class="lang-name">French</span>
+                    <div class="lang-bar-wrap"><div class="lang-bar-fill" style="width:82%"></div></div>
+                    <span class="lang-level">Full Professional Proficiency</span>
+                </div>
+                <div class="lang-item">
+                    <span class="lang-name">Spanish</span>
+                    <div class="lang-bar-wrap"><div class="lang-bar-fill" style="width:68%"></div></div>
+                    <span class="lang-level">Professional Working Proficiency</span>
+                </div>
             </div>
-        </div>
+        </section>
 
-    </div>
-</section>
+        <!-- ── CONTACT ── -->
+        <section class="section reveal" id="contact">
+            <div class="section-eyebrow">07</div>
+            <h2 class="section-title">Contact</h2>
+            <p class="contact-desc">
+                I welcome enquiries regarding opportunities in project management, cybersecurity,
+                and IT leadership. Please do not hesitate to reach out through the channels below.
+            </p>
+            <div class="contact-row">
+                <a class="contact-btn-primary" href="mailto:concio.matteo@outlook.it">concio.matteo@outlook.it</a>
+                <a class="contact-btn-ghost" href="https://www.linkedin.com/in/matteoconcio" target="_blank" rel="noopener">LinkedIn ↗</a>
+                <a class="contact-btn-ghost" href="https://github.com/matteoconcio" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+        </section>
 
-<!-- ── EXPERIENCE ── -->
-<section class="section reveal" id="experience">
-    <div class="section-header">
-        <span class="section-num">03</span>
-        <h2 class="section-title">Experience</h2>
-    </div>
-
-    <div class="exp-item">
-        <div class="exp-meta">
-            Jun 2022 — Aug 2022<br>
-            Modena, Italy
-        </div>
-        <div>
-            <div class="exp-company">Vodafone</div>
-            <div class="exp-role">Sales Associate</div>
-            <ul class="exp-list">
-                <li>Assisted private and business clients in identifying and selecting appropriate telecommunications plans, applying consultative sales techniques.</li>
-                <li>Managed customer relationships through the full sales cycle, from initial consultation to after-sales support.</li>
-            </ul>
-        </div>
-    </div>
-
-</section>
-
-<!-- ── CERTIFICATIONS ── -->
-<section class="section reveal" id="certifications">
-    <div class="section-header">
-        <span class="section-num">04</span>
-        <h2 class="section-title">Certifications</h2>
-    </div>
-    <table class="cert-table" aria-label="Certifications list">
-        <tbody>
-            <tr>
-                <td><span class="cert-tag tag-british">British Council</span></td>
-                <td><span class="cert-name">IELTS C1</span></td>
-                <td><span class="cert-date">Apr 2026</span></td>
-            </tr>
-            <tr>
-                <td><span class="cert-tag tag-cisco">Cisco</span></td>
-                <td><span class="cert-name">CCNA: Enterprise Networking, Security &amp; Automation</span></td>
-                <td><span class="cert-date">Feb 2026</span></td>
-            </tr>
-            <tr>
-                <td><span class="cert-tag tag-oracle">Oracle</span></td>
-                <td><span class="cert-name">Database: Develop PL/SQL Program Units</span></td>
-                <td><span class="cert-date">Nov 2025</span></td>
-            </tr>
-            <tr>
-                <td><span class="cert-tag tag-oracle">Oracle</span></td>
-                <td><span class="cert-name">Database: PL/SQL Fundamentals</span></td>
-                <td><span class="cert-date">Nov 2025</span></td>
-            </tr>
-            <tr>
-                <td><span class="cert-tag tag-oracle">Oracle</span></td>
-                <td><span class="cert-name">Data Modeling &amp; Relational Database Design</span></td>
-                <td><span class="cert-date">Nov 2025</span></td>
-            </tr>
-            <tr>
-                <td><span class="cert-tag tag-oracle">Oracle</span></td>
-                <td><span class="cert-name">Database: SQL Fundamentals</span></td>
-                <td><span class="cert-date">Mar 2025</span></td>
-            </tr>
-            <tr>
-                <td><span class="cert-tag tag-microsoft">Microsoft</span></td>
-                <td><span class="cert-name">Software Development Fundamentals</span></td>
-                <td><span class="cert-date">Nov 2024</span></td>
-            </tr>
-            <tr>
-                <td><span class="cert-tag tag-cisco">Cisco</span></td>
-                <td><span class="cert-name">CCNA: Introduction to Networks</span></td>
-                <td><span class="cert-date">Sep 2024</span></td>
-            </tr>
-        </tbody>
-    </table>
-</section>
-
-<!-- ── SKILLS ── -->
-<section class="section reveal" id="skills">
-    <div class="section-header">
-        <span class="section-num">05</span>
-        <h2 class="section-title">Skills</h2>
-    </div>
-    <div class="skills-grid">
-        <div class="skill-card">
-            <div class="skill-group-title">Project Management</div>
-            <ul class="skill-list">
-                <li>Team Coordination</li>
-                <li>Stakeholder Communication</li>
-                <li>Risk Management</li>
-                <li>Agile Methodologies</li>
-                <li>Cross-cultural Collaboration</li>
-            </ul>
-        </div>
-        <div class="skill-card">
-            <div class="skill-group-title">Cybersecurity</div>
-            <ul class="skill-list">
-                <li>Network Security</li>
-                <li>Network Automation</li>
-                <li>Cisco CCNA</li>
-                <li>Information Security</li>
-                <li>Security Policies &amp; Compliance</li>
-            </ul>
-        </div>
-        <div class="skill-card">
-            <div class="skill-group-title">Technical</div>
-            <ul class="skill-list">
-                <li>SQL &amp; PL/SQL</li>
-                <li>Oracle Database</li>
-                <li>C# &amp; OOP</li>
-                <li>Linux</li>
-                <li>Software Development</li>
-            </ul>
-        </div>
-    </div>
-</section>
-
-<!-- ── LANGUAGES ── -->
-<section class="section reveal" id="languages">
-    <div class="section-header">
-        <span class="section-num">06</span>
-        <h2 class="section-title">Languages</h2>
-    </div>
-    <div class="lang-list">
-        <div class="lang-item">
-            <span class="lang-name">Italian</span>
-            <div class="lang-bar-wrap"><div class="lang-bar-fill" style="width:100%"></div></div>
-            <span class="lang-level">Native</span>
-        </div>
-        <div class="lang-item">
-            <span class="lang-name">English</span>
-            <div class="lang-bar-wrap"><div class="lang-bar-fill" style="width:88%"></div></div>
-            <span class="lang-level">Full Professional &mdash; IELTS C1</span>
-        </div>
-        <div class="lang-item">
-            <span class="lang-name">French</span>
-            <div class="lang-bar-wrap"><div class="lang-bar-fill" style="width:82%"></div></div>
-            <span class="lang-level">Full Professional Proficiency</span>
-        </div>
-        <div class="lang-item">
-            <span class="lang-name">Spanish</span>
-            <div class="lang-bar-wrap"><div class="lang-bar-fill" style="width:68%"></div></div>
-            <span class="lang-level">Professional Working Proficiency</span>
-        </div>
-    </div>
-</section>
-
-<!-- ── CONTACT ── -->
-<section class="section reveal" id="contact">
-    <div class="section-header">
-        <span class="section-num">07</span>
-        <h2 class="section-title">Contact</h2>
-    </div>
-    <p class="contact-cta">
-        I welcome enquiries regarding opportunities in project management, cybersecurity,
-        and IT leadership. Please do not hesitate to reach out through the channels below.
-    </p>
-    <div class="contact-row">
-        <a class="contact-btn-primary" href="mailto:concio.matteo@outlook.it">concio.matteo@outlook.it</a>
-        <a class="contact-btn-ghost" href="https://www.linkedin.com/in/matteoconcio" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="contact-btn-ghost" href="https://github.com/matteoconcio" target="_blank" rel="noopener">GitHub</a>
-    </div>
-</section>
-
-</div><!-- /page -->
-</main>
+    </div><!-- /content -->
+</div><!-- /main -->
 
 <!-- ── FOOTER ── -->
 <footer>
@@ -919,9 +914,8 @@
 </footer>
 
 <script>
-    // Courses toggle
     function toggleCourses(id) {
-        const el = document.getElementById(id);
+        const el  = document.getElementById(id);
         const btn = el.previousElementSibling;
         el.classList.toggle('open');
         btn.textContent = el.classList.contains('open')
@@ -929,7 +923,7 @@
             : 'View relevant courses ↓';
     }
 
-    // Scroll reveal
+    // Scroll-reveal
     const observer = new IntersectionObserver(entries => {
         entries.forEach(e => {
             if (e.isIntersecting) {
@@ -937,16 +931,29 @@
                 observer.unobserve(e.target);
             }
         });
-    }, { threshold: 0.08 });
-
+    }, { threshold: 0.06 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Nav smooth scroll
-    document.querySelectorAll('nav a[href^="#"]').forEach(a => {
+    // Active nav highlight
+    const sections = document.querySelectorAll('.section[id]');
+    const navLinks  = document.querySelectorAll('.sidebar-nav a');
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                navLinks.forEach(a => a.classList.remove('active'));
+                const active = document.querySelector(`.sidebar-nav a[href="#${e.target.id}"]`);
+                if (active) active.classList.add('active');
+            }
+        });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(s => io.observe(s));
+
+    // Smooth scroll
+    document.querySelectorAll('.sidebar-nav a[href^="#"]').forEach(a => {
         a.addEventListener('click', e => {
             e.preventDefault();
             const t = document.querySelector(a.getAttribute('href'));
-            if (t) window.scrollTo({ top: t.offsetTop - 60, behavior: 'smooth' });
+            if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     });
 </script>
