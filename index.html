@@ -168,7 +168,7 @@
         }
 
         .stat {
-            padding: 40px 0;
+            padding: 40px 24px;
             border-right: 1px solid var(--border);
         }
         .stat:last-child { border-right: none; }
@@ -198,9 +198,6 @@
         .section:last-of-type { border-bottom: none; }
 
         .section-head {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
             margin-bottom: 48px;
             padding-bottom: 20px;
             border-bottom: 1px solid var(--border);
@@ -212,6 +209,8 @@
             text-transform: uppercase;
             letter-spacing: 0.18em;
             color: var(--sage);
+            display: block;
+            margin-bottom: 8px;
         }
 
         .section-title {
@@ -446,15 +445,15 @@
         }
 
         .lang-bar-wrap {
-            height: 1px;
+            height: 3px;
             background: var(--border);
-            position: relative;
+            border-radius: 99px;
+            overflow: hidden;
         }
         .lang-bar-fill {
-            position: absolute;
-            top: 0; left: 0;
-            height: 1px;
+            height: 100%;
             background: var(--sage);
+            border-radius: 99px;
         }
 
         .lang-level {
