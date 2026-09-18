@@ -214,15 +214,6 @@
             to   { opacity: 1; transform: none; }
         }
 
-        .hero-meta {
-            font-size: 0.78rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            color: var(--muted);
-            margin-bottom: 24px;
-        }
-
         .hero h1 {
             font-family: var(--serif);
             font-size: clamp(4rem, 10vw, 7.5rem);
@@ -230,7 +221,15 @@
             line-height: 0.93;
             letter-spacing: -0.025em;
             color: var(--text);
-            margin-bottom: 52px;
+            margin-bottom: 20px;
+        }
+
+        /* Meta sits below the name — not an eyebrow above it */
+        .hero-meta {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 48px;
+            letter-spacing: 0;
         }
 
         .hero-body {
@@ -339,7 +338,7 @@
         .aside-item:last-child  { border-bottom: none; }
 
         .aside-key {
-            font-size: 0.67rem;
+            font-size: 0.72rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.12em;
@@ -471,10 +470,10 @@
         .cert-table { width: 100%; border-collapse: collapse; }
 
         .cert-table thead th {
-            font-size: 0.65rem;
+            font-size: 0.72rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.08em;
             color: var(--subtle);
             padding: 0 12px 12px;
             text-align: left;
@@ -504,10 +503,10 @@
         .cert-tag {
             display: inline-flex;
             align-items: center;
-            font-size: 0.63rem;
+            font-size: 0.72rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.04em;
             padding: 3px 8px;
             border-radius: 3px;
             white-space: nowrap;
@@ -616,7 +615,9 @@
             max-width: 680px;
         }
 
-        /* Three equal columns with border dividers */
+        /* Three equal columns — each item has 32px inset on both sides
+           of its column boundary; border sits on the left of items 2–3
+           so the inset is explicit on both sides of every separator. */
         .contact-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -624,17 +625,18 @@
         }
 
         .contact-item {
-            padding: 24px 32px 24px 0;
-            border-right: 1px solid var(--border);
+            padding: 28px 32px 28px 0;
         }
-        .contact-item + .contact-item { padding-left: 32px; }
-        .contact-item:last-child { border-right: none; }
+        .contact-item + .contact-item {
+            padding-left: 32px;
+            border-left: 1px solid var(--border);
+        }
 
         .contact-item-label {
-            font-size: 0.65rem;
+            font-size: 0.72rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.1em;
             color: var(--subtle);
             margin-bottom: 8px;
         }
@@ -726,7 +728,7 @@
             .contact-big { font-size: 2rem; }
             .contact-row { grid-template-columns: 1fr; }
             .contact-item {
-                border-right: none;
+                border-left: none;
                 border-bottom: 1px solid var(--border);
                 padding: 20px 0 !important;
             }
@@ -799,8 +801,8 @@
      HERO
 ══════════════════════════════════════ -->
 <section class="hero" aria-label="Introduction">
-    <p class="hero-meta">Computer Engineering &nbsp;·&nbsp; Murcia, Spain</p>
     <h1>Matteo<br>Concio</h1>
+    <p class="hero-meta">Computer Engineering · Murcia, Spain</p>
     <div class="hero-body">
         <p class="hero-desc">
             Aspiring Project Manager with a technical foundation in cybersecurity.

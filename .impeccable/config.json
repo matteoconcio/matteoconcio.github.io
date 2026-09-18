@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "em-dash-overuse",
+        "value": "*",
+        "files": [
+          "/Users/matteoconcio/Desktop/portfolio/index.html"
+        ],
+        "createdAt": "2026-09-18T16:58:56.142Z",
+        "reason": "Em-dashes appear exclusively in date ranges (2024 — 2027, Aug 2025 — Jan 2026, etc.) where they are typographically correct; not AI writing cadence"
+      }
+    ]
+  }
+}
