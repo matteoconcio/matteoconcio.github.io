@@ -4,23 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matteo Concio — Project Management &amp; Cybersecurity</title>
+    <meta name="description" content="Computer Engineering student at UCAM, aspiring Project Manager with a cybersecurity focus. Certified by Cisco, Oracle, and Microsoft.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* ═══════════════════════════════
+           DESIGN TOKENS
+           Light-mode defaults; dark-mode
+           overrides via prefers-color-scheme.
+           All text/bg combinations verified
+           ≥ 4.5:1 (WCAG 2.1 AA).
+        ═══════════════════════════════ */
         :root {
-            --bg:      #f5f0e8;
-            --white:   #ffffff;
-            --text:    #1a1a1a;
-            --muted:   #6b6b6b;
-            --faint:   #ababab;
-            --border:  #e0d9ce;
-            --sage:    #7a9c6b;
-            --sage-lt: #eef3eb;
-            --serif:   'Playfair Display', Georgia, serif;
-            --sans:    'Inter', system-ui, sans-serif;
+            --bg:         #f9f8f5;
+            --surface:    #ffffff;
+            --text:       #111110;   /* ~18:1 on --bg */
+            --muted:      #555552;   /* ~7.2:1 on --bg */
+            --subtle:     #6e6c66;   /* ~5.0:1 on --bg */
+            --border:     #e4e2db;
+            --accent:     #3d6b31;   /* ~6.1:1 on --bg */
+            --accent-lt:  #edf3eb;
+            --accent-dim: rgba(61, 107, 49, .07);
+
+            --serif: 'Playfair Display', Georgia, serif;
+            --sans:  'Inter', system-ui, sans-serif;
+
+            --max-w:  1120px;
+            --gutter: clamp(20px, 5vw, 56px);
         }
 
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg:         #111110;
+                --surface:    #1b1b19;
+                --text:       #f0ede8;   /* ~17:1 on --bg */
+                --muted:      #a8a5a0;   /* ~8.0:1 on --bg */
+                --subtle:     #8c8880;   /* ~5.4:1 on --bg */
+                --border:     #2c2b27;
+                --accent:     #7ab86a;   /* ~8.1:1 on --bg */
+                --accent-lt:  #1c2e19;
+                --accent-dim: rgba(122, 184, 106, .1);
+            }
+        }
+
+        /* ═══════════════════════════════
+           RESET + BASE
+        ═══════════════════════════════ */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html { font-size: 16px; scroll-behavior: smooth; }
 
@@ -30,21 +60,80 @@
             color: var(--text);
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ── NAV ── */
+        /* ═══════════════════════════════
+           BROWSER SURFACES
+           Text selection, scrollbar, focus
+           ring — themed from palette.
+        ═══════════════════════════════ */
+        ::selection {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--subtle); }
+
+        /* ═══════════════════════════════
+           UTILITIES
+        ═══════════════════════════════ */
+        .sr-only {
+            position: absolute;
+            width: 1px; height: 1px;
+            padding: 0; margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* ═══════════════════════════════
+           SKIP LINK
+        ═══════════════════════════════ */
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 0;
+            padding: 8px 16px;
+            background: var(--accent);
+            color: var(--bg);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            z-index: 200;
+            border-radius: 0 0 4px 0;
+            transition: top 0.1s;
+        }
+        .skip-link:focus { top: 0; }
+
+        /* ═══════════════════════════════
+           HEADER / NAV
+           Sticky + subtle background blur.
+        ═══════════════════════════════ */
         header {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: var(--bg);
+            background: color-mix(in srgb, var(--bg) 90%, transparent);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border);
         }
 
         .nav-inner {
-            max-width: 1020px;
+            max-width: var(--max-w);
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 0 var(--gutter);
             height: 60px;
             display: flex;
             align-items: center;
@@ -53,59 +142,95 @@
 
         .nav-logo {
             font-family: var(--serif);
-            font-size: 1.05rem;
-            font-weight: 500;
+            font-size: 1rem;
+            font-weight: 600;
             color: var(--text);
             text-decoration: none;
-            letter-spacing: 0.01em;
         }
+
+        nav { display: flex; align-items: center; }
 
         nav ul {
             list-style: none;
             display: flex;
-            gap: 36px;
+            gap: 32px;
         }
 
         nav a {
-            font-size: 0.78rem;
-            font-weight: 400;
+            font-size: 0.77rem;
+            font-weight: 500;
             color: var(--muted);
             text-decoration: none;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.03em;
             transition: color 0.2s;
         }
-        nav a:hover { color: var(--sage); }
+        nav a:hover,
+        nav a[aria-current="true"] { color: var(--accent); }
 
-        /* ── PAGE ── */
+        /* Hamburger — shown only on mobile */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            gap: 5px;
+            color: var(--text);
+        }
+        .nav-toggle span {
+            display: block;
+            width: 22px;
+            height: 1.5px;
+            background: currentColor;
+            transition: transform 0.22s, opacity 0.22s;
+        }
+        .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ═══════════════════════════════
+           PAGE WRAPPER
+        ═══════════════════════════════ */
         .page {
-            max-width: 1020px;
+            max-width: var(--max-w);
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 0 var(--gutter);
         }
 
-        /* ── HERO ── */
+        /* ═══════════════════════════════
+           HERO
+           Single entry animation — only
+           this element uses translateY.
+        ═══════════════════════════════ */
         .hero {
-            padding: 100px 0 80px;
+            padding: 96px 0 84px;
             border-bottom: 1px solid var(--border);
+            animation: heroIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes heroIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: none; }
         }
 
         .hero-meta {
-            font-size: 0.75rem;
+            font-size: 0.78rem;
             font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 0.18em;
-            color: var(--sage);
-            margin-bottom: 28px;
+            letter-spacing: 0.14em;
+            color: var(--muted);
+            margin-bottom: 24px;
         }
 
         .hero h1 {
             font-family: var(--serif);
-            font-size: 5.5rem;
+            font-size: clamp(4rem, 10vw, 7.5rem);
             font-weight: 400;
-            line-height: 1.0;
-            letter-spacing: -0.02em;
+            line-height: 0.93;
+            letter-spacing: -0.025em;
             color: var(--text);
-            margin-bottom: 32px;
+            margin-bottom: 52px;
         }
 
         .hero-body {
@@ -118,8 +243,8 @@
         .hero-desc {
             font-size: 1rem;
             color: var(--muted);
-            max-width: 500px;
-            line-height: 1.85;
+            max-width: 480px;
+            line-height: 1.9;
         }
 
         .hero-links {
@@ -137,19 +262,22 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             transition: color 0.2s;
         }
-        .hero-link:hover { color: var(--sage); }
+        .hero-link:hover { color: var(--accent); }
 
+        /* Arrow: horizontal line + arrowhead via pseudo */
         .hero-link-arrow {
-            width: 20px;
+            display: block;
+            width: 22px;
             height: 1px;
             background: currentColor;
             position: relative;
             transition: width 0.2s;
+            flex-shrink: 0;
         }
-        .hero-link:hover .hero-link-arrow { width: 28px; }
+        .hero-link:hover .hero-link-arrow { width: 30px; }
         .hero-link-arrow::after {
             content: '';
             position: absolute;
@@ -160,98 +288,63 @@
             transform: rotate(45deg);
         }
 
-        /* ── STATS ROW ── */
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .stat {
-            padding: 40px 24px;
-            border-right: 1px solid var(--border);
-        }
-        .stat:last-child { border-right: none; }
-
-        .stat-n {
-            font-family: var(--serif);
-            font-size: 3rem;
-            font-weight: 400;
-            color: var(--text);
-            line-height: 1;
-            margin-bottom: 6px;
-        }
-
-        .stat-l {
-            font-size: 0.72rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--faint);
-        }
-
-        /* ── SECTION ── */
+        /* ═══════════════════════════════
+           SECTIONS
+           Fade-in only (no translate) —
+           distinct from hero's entrance.
+        ═══════════════════════════════ */
         .section {
-            padding: 72px 0;
+            padding: 80px 0;
             border-bottom: 1px solid var(--border);
+            opacity: 0;
+            transition: opacity 0.75s ease;
         }
         .section:last-of-type { border-bottom: none; }
+        .section.visible { opacity: 1; }
 
-        .section-head {
-            margin-bottom: 48px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .section-label {
-            font-size: 0.7rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.18em;
-            color: var(--sage);
-            display: block;
-            margin-bottom: 8px;
-        }
+        .section-head { margin-bottom: 52px; }
 
         .section-title {
             font-family: var(--serif);
-            font-size: 2rem;
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
             font-weight: 400;
             color: var(--text);
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
         }
 
-        /* ── ABOUT ── */
+        /* ═══════════════════════════════
+           ABOUT
+           Two-column: text left, facts right.
+        ═══════════════════════════════ */
         .about-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 360px;
             gap: 80px;
         }
 
         .about-text {
-            font-size: 0.97rem;
+            font-size: 1rem;
             color: var(--muted);
             line-height: 1.9;
         }
-        .about-text p + p { margin-top: 18px; }
+        .about-text p + p { margin-top: 20px; }
         .about-text strong { color: var(--text); font-weight: 500; }
 
-        .about-aside {}
-
         .aside-item {
-            padding: 18px 0;
+            padding: 15px 0;
             border-bottom: 1px solid var(--border);
         }
         .aside-item:first-child { padding-top: 0; }
         .aside-item:last-child  { border-bottom: none; }
 
         .aside-key {
-            font-size: 0.68rem;
-            font-weight: 500;
+            font-size: 0.67rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.14em;
-            color: var(--faint);
-            margin-bottom: 4px;
+            letter-spacing: 0.12em;
+            color: var(--subtle);
+            margin-bottom: 3px;
         }
 
         .aside-val {
@@ -260,9 +353,10 @@
             line-height: 1.5;
         }
 
-        /* ── TIMELINE ── */
-        .timeline { display: flex; flex-direction: column; }
-
+        /* ═══════════════════════════════
+           TIMELINE (Education)
+           Date column fixed at 200px.
+        ═══════════════════════════════ */
         .tl-item {
             display: grid;
             grid-template-columns: 200px 1fr;
@@ -274,50 +368,56 @@
 
         .tl-date {
             font-size: 0.78rem;
-            color: var(--faint);
-            padding-top: 4px;
+            color: var(--subtle);
+            padding-top: 3px;
             line-height: 1.6;
+            font-variant-numeric: tabular-nums;
         }
 
         .tl-school {
             font-size: 0.95rem;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--text);
             margin-bottom: 3px;
         }
 
         .tl-degree {
-            font-size: 0.86rem;
+            font-size: 0.87rem;
             color: var(--muted);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .tl-toggle {
             background: none;
-            border: none;
-            padding: 0;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 4px 10px;
             font-family: var(--sans);
-            font-size: 0.76rem;
+            font-size: 0.73rem;
             font-weight: 500;
-            color: var(--sage);
+            color: var(--muted);
             cursor: pointer;
-            transition: opacity 0.15s;
+            transition: border-color 0.15s, color 0.15s;
         }
-        .tl-toggle:hover { opacity: 0.7; }
+        .tl-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
         .tl-courses {
             display: none;
-            margin-top: 10px;
-            font-size: 0.82rem;
+            margin-top: 12px;
+            font-size: 0.83rem;
             color: var(--muted);
             line-height: 1.75;
             padding: 12px 16px;
-            background: var(--sage-lt);
-            border-left: 2px solid var(--sage);
+            background: var(--accent-lt);
+            /* 1px border — within craft-floor rule */
+            border-left: 1px solid var(--accent);
+            border-radius: 0 4px 4px 0;
         }
         .tl-courses.open { display: block; }
 
-        /* ── EXPERIENCE ── */
+        /* ═══════════════════════════════
+           EXPERIENCE
+        ═══════════════════════════════ */
         .exp-item {
             display: grid;
             grid-template-columns: 200px 1fr;
@@ -329,52 +429,69 @@
 
         .exp-meta {
             font-size: 0.78rem;
-            color: var(--faint);
+            color: var(--subtle);
             line-height: 1.7;
         }
 
         .exp-company {
             font-size: 0.95rem;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--text);
             margin-bottom: 2px;
         }
 
         .exp-role {
-            font-size: 0.86rem;
-            color: var(--sage);
+            font-size: 0.87rem;
+            color: var(--accent);
             font-weight: 400;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             font-style: italic;
         }
 
         .exp-list { list-style: none; }
         .exp-list li {
-            font-size: 0.87rem;
+            font-size: 0.88rem;
             color: var(--muted);
-            padding-left: 16px;
+            padding-left: 18px;
             position: relative;
             margin-bottom: 7px;
             line-height: 1.65;
         }
         .exp-list li::before {
-            content: '—';
+            content: '–';
             position: absolute;
             left: 0;
-            color: var(--faint);
+            color: var(--subtle);
         }
 
-        /* ── CERTIFICATIONS ── */
+        /* ═══════════════════════════════
+           CERTIFICATIONS
+           Semantic table with visible header.
+        ═══════════════════════════════ */
         .cert-table { width: 100%; border-collapse: collapse; }
 
-        .cert-table tr {
+        .cert-table thead th {
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--subtle);
+            padding: 0 12px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .cert-table thead th:first-child { padding-left: 0; }
+        .cert-table thead th:last-child  { padding-right: 0; text-align: right; }
+
+        .cert-table tbody tr {
             border-bottom: 1px solid var(--border);
             transition: background 0.15s;
         }
-        .cert-table tr:hover { background: rgba(122,156,107,0.04); }
+        .cert-table tbody tr:last-child { border-bottom: none; }
+        .cert-table tbody tr:hover { background: var(--accent-dim); }
 
         .cert-table td {
-            padding: 16px 12px;
+            padding: 14px 12px;
             font-size: 0.88rem;
             vertical-align: middle;
         }
@@ -382,37 +499,57 @@
         .cert-table td:last-child  { padding-right: 0; text-align: right; }
 
         .cert-name { font-weight: 500; color: var(--text); }
-        .cert-date { color: var(--faint); white-space: nowrap; font-size: 0.8rem; }
+        .cert-date { color: var(--subtle); white-space: nowrap; font-size: 0.8rem; font-variant-numeric: tabular-nums; }
 
         .cert-tag {
-            display: inline-block;
-            font-size: 0.65rem;
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.63rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.07em;
-            padding: 3px 9px;
+            letter-spacing: 0.06em;
+            padding: 3px 8px;
             border-radius: 3px;
             white-space: nowrap;
         }
+
+        /* Tag colors — light mode */
         .tag-cisco     { background: #ecfdf5; color: #065f46; }
         .tag-oracle    { background: #fef2f2; color: #991b1b; }
-        .tag-microsoft { background: #eff6ff; color: #1e40af; }
-        .tag-british   { background: var(--sage-lt); color: #3a6b2a; }
+        .tag-microsoft { background: #eff6ff; color: #1d4ed8; }
+        .tag-british   { background: var(--accent-lt); color: var(--accent); }
 
-        /* ── SKILLS ── */
+        /* Tag colors — dark mode (re-themed, not inverted) */
+        @media (prefers-color-scheme: dark) {
+            .tag-cisco     { background: #064e3b; color: #6ee7b7; }
+            .tag-oracle    { background: #4c0519; color: #fca5a5; }
+            .tag-microsoft { background: #1e3a8a; color: #93c5fd; }
+        }
+
+        /* ═══════════════════════════════
+           SKILLS
+           Three equal columns separated
+           by vertical borders.
+        ═══════════════════════════════ */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 48px;
         }
 
+        .skill-group {
+            padding: 0 40px;
+            border-right: 1px solid var(--border);
+        }
+        .skill-group:first-child { padding-left: 0; }
+        .skill-group:last-child  { padding-right: 0; border-right: none; }
+
         .skill-group-label {
-            font-size: 0.68rem;
-            font-weight: 500;
+            font-size: 0.7rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: var(--sage);
-            margin-bottom: 16px;
+            letter-spacing: 0.13em;
+            color: var(--accent);
+            margin-bottom: 20px;
         }
 
         .skill-list { list-style: none; }
@@ -425,76 +562,80 @@
         }
         .skill-list li:last-child { border-bottom: none; }
 
-        /* ── LANGUAGES ── */
-        .lang-list { display: flex; flex-direction: column; }
-
+        /* ═══════════════════════════════
+           LANGUAGES
+           Name + cert inline; level text
+           right-aligned. No progress bars
+           (decorative, not informative).
+        ═══════════════════════════════ */
         .lang-item {
-            display: grid;
-            grid-template-columns: 180px 1fr auto;
+            display: flex;
             align-items: center;
-            gap: 32px;
+            justify-content: space-between;
+            gap: 24px;
             padding: 20px 0;
             border-bottom: 1px solid var(--border);
         }
         .lang-item:last-child { border-bottom: none; }
 
+        .lang-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
         .lang-name {
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 500;
             color: var(--text);
         }
 
-        .lang-bar-wrap {
-            height: 3px;
-            background: var(--border);
-            border-radius: 99px;
-            overflow: hidden;
-        }
-        .lang-bar-fill {
-            height: 100%;
-            background: var(--sage);
-            border-radius: 99px;
+        .lang-cert {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--accent);
         }
 
         .lang-level {
-            font-size: 0.78rem;
-            color: var(--faint);
-            white-space: nowrap;
-            min-width: 160px;
+            font-size: 0.82rem;
+            color: var(--subtle);
             text-align: right;
         }
 
-        /* ── CONTACT ── */
+        /* ═══════════════════════════════
+           CONTACT
+        ═══════════════════════════════ */
         .contact-big {
             font-family: var(--serif);
-            font-size: 3.5rem;
+            font-size: clamp(2rem, 4vw, 3.5rem);
             font-weight: 400;
             color: var(--text);
-            line-height: 1.15;
-            margin-bottom: 40px;
-            letter-spacing: -0.01em;
-            max-width: 600px;
+            line-height: 1.2;
+            margin-bottom: 48px;
+            letter-spacing: -0.02em;
+            max-width: 680px;
         }
 
+        /* Three equal columns with border dividers */
         .contact-row {
-            display: flex;
-            gap: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             border-top: 1px solid var(--border);
         }
 
         .contact-item {
-            flex: 1;
-            padding: 24px 0;
+            padding: 24px 32px 24px 0;
             border-right: 1px solid var(--border);
         }
+        .contact-item + .contact-item { padding-left: 32px; }
         .contact-item:last-child { border-right: none; }
 
         .contact-item-label {
             font-size: 0.65rem;
-            font-weight: 500;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.14em;
-            color: var(--faint);
+            letter-spacing: 0.12em;
+            color: var(--subtle);
             margin-bottom: 8px;
         }
 
@@ -503,86 +644,161 @@
             font-weight: 500;
             color: var(--text);
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
             transition: color 0.2s;
+            word-break: break-all;
         }
-        .contact-item-link:hover { color: var(--sage); }
+        .contact-item-link:hover { color: var(--accent); }
 
-        /* ── FOOTER ── */
+        /* ═══════════════════════════════
+           FOOTER
+        ═══════════════════════════════ */
         footer {
             border-top: 1px solid var(--border);
             padding: 28px 0;
         }
 
         .footer-inner {
-            max-width: 1020px;
+            max-width: var(--max-w);
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 0 var(--gutter);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.76rem;
-            color: var(--faint);
+            font-size: 0.75rem;
+            color: var(--subtle);
         }
 
-        /* ── REVEAL ── */
-        .reveal {
-            opacity: 0;
-            transform: translateY(18px);
-            transition: opacity 0.65s ease, transform 0.65s ease;
+        /* ═══════════════════════════════
+           RESPONSIVE — 900px breakpoint
+           About column collapses; skills
+           grid becomes 2-up.
+        ═══════════════════════════════ */
+        @media (max-width: 900px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+            .skills-grid { grid-template-columns: 1fr 1fr; }
+            .skill-group:nth-child(2) { border-right: none; }
+            .skill-group:last-child {
+                grid-column: 1 / -1;
+                padding: 32px 0 0;
+                border-right: none;
+                border-top: 1px solid var(--border);
+            }
         }
-        .reveal.visible { opacity: 1; transform: none; }
 
-        /* ── RESPONSIVE ── */
-        @media (max-width: 760px) {
-            .hero h1 { font-size: 3.6rem; }
-            .hero-body { flex-direction: column; align-items: flex-start; }
+        /* ═══════════════════════════════
+           RESPONSIVE — 680px breakpoint
+           Mobile layout; hamburger nav.
+        ═══════════════════════════════ */
+        @media (max-width: 680px) {
+            .hero-body {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 32px;
+            }
             .hero-links { align-items: flex-start; }
-            .stats-row { grid-template-columns: repeat(2, 1fr); }
-            .stat:nth-child(2) { border-right: none; }
-            .stat:nth-child(1),
-            .stat:nth-child(2) { border-bottom: 1px solid var(--border); }
-            .about-grid { grid-template-columns: 1fr; gap: 40px; }
-            .tl-item, .exp-item { grid-template-columns: 1fr; gap: 6px; }
-            .skills-grid { grid-template-columns: 1fr; gap: 32px; }
-            .lang-item { grid-template-columns: 1fr; gap: 8px; }
-            .contact-big { font-size: 2.4rem; }
-            .contact-row { flex-direction: column; }
-            .contact-item { border-right: none; border-bottom: 1px solid var(--border); }
-            nav ul { display: none; }
-            .cert-table .cert-tag { display: none; }
-            .page { padding: 0 20px; }
-            .nav-inner { padding: 0 20px; }
-            .footer-inner { padding: 0 20px; }
+
+            /* Stack date above content in timelines */
+            .tl-item,
+            .exp-item {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+            .tl-date,
+            .exp-meta { padding-top: 0; }
+
+            /* Single-column skills */
+            .skills-grid { grid-template-columns: 1fr; }
+            .skill-group {
+                padding: 28px 0 0;
+                border-right: none;
+                border-top: 1px solid var(--border);
+            }
+            .skill-group:first-child { padding-top: 0; border-top: none; }
+            .skill-group:last-child  { padding: 28px 0 0; border-top: 1px solid var(--border); }
+
+            /* Languages wrap */
+            .lang-item { flex-wrap: wrap; }
+
+            /* Contact stacks */
+            .contact-big { font-size: 2rem; }
+            .contact-row { grid-template-columns: 1fr; }
+            .contact-item {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 20px 0 !important;
+            }
+            .contact-item:last-child { border-bottom: none; }
+
+            /* Simplify cert table on small screens */
+            .cert-table .cert-tag,
+            .cert-table thead th:first-child,
+            .cert-table thead th:last-child { display: none; }
+            .cert-table .cert-date { display: none; }
+
+            /* Hamburger visible; nav list becomes dropdown */
+            .nav-toggle { display: flex; }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: var(--bg);
+                border-bottom: 1px solid var(--border);
+                flex-direction: column;
+                gap: 0;
+                padding: 6px 0;
+            }
+            nav ul.open { display: flex; }
+            nav ul li a {
+                display: block;
+                padding: 11px var(--gutter);
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ══════════════════════════════════════
+     HEADER
+══════════════════════════════════════ -->
 <header>
     <div class="nav-inner">
-        <a class="nav-logo" href="#">Matteo Concio</a>
-        <nav>
-            <ul>
+        <a class="nav-logo" href="#" aria-label="Matteo Concio — home">Matteo Concio</a>
+        <nav aria-label="Site navigation">
+            <button class="nav-toggle"
+                    aria-controls="nav-menu"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <ul id="nav-menu" role="list">
                 <li><a href="#about">About</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#certifications">Certifications</a></li>
                 <li><a href="#skills">Skills</a></li>
+                <li><a href="#languages">Languages</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </div>
 </header>
 
-<main>
+<main id="main">
 <div class="page">
 
-<!-- ── HERO ── -->
-<section class="hero">
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section class="hero" aria-label="Introduction">
     <p class="hero-meta">Computer Engineering &nbsp;·&nbsp; Murcia, Spain</p>
     <h1>Matteo<br>Concio</h1>
     <div class="hero-body">
@@ -594,60 +810,41 @@
         </p>
         <div class="hero-links">
             <a class="hero-link" href="https://www.linkedin.com/in/matteoconcio" target="_blank" rel="noopener">
-                LinkedIn <span class="hero-link-arrow"></span>
+                LinkedIn <span class="hero-link-arrow" aria-hidden="true"></span>
             </a>
             <a class="hero-link" href="https://github.com/matteoconcio" target="_blank" rel="noopener">
-                GitHub <span class="hero-link-arrow"></span>
+                GitHub <span class="hero-link-arrow" aria-hidden="true"></span>
             </a>
             <a class="hero-link" href="mailto:concio.matteo@outlook.it">
-                concio.matteo@outlook.it <span class="hero-link-arrow"></span>
+                concio.matteo@outlook.it <span class="hero-link-arrow" aria-hidden="true"></span>
             </a>
         </div>
     </div>
 </section>
 
-<!-- ── STATS ── -->
-<div class="stats-row reveal">
-    <div class="stat">
-        <div class="stat-n">8</div>
-        <div class="stat-l">Certifications</div>
-    </div>
-    <div class="stat">
-        <div class="stat-n">4</div>
-        <div class="stat-l">Languages</div>
-    </div>
-    <div class="stat">
-        <div class="stat-n">3</div>
-        <div class="stat-l">Countries</div>
-    </div>
-    <div class="stat">
-        <div class="stat-n">2</div>
-        <div class="stat-l">Specialisations</div>
-    </div>
-</div>
-
-<!-- ── ABOUT ── -->
-<section class="section reveal" id="about">
+<!-- ══════════════════════════════════════
+     ABOUT
+══════════════════════════════════════ -->
+<section class="section" id="about" aria-labelledby="about-title">
     <div class="section-head">
-        <span class="section-label">01 — About</span>
-        <h2 class="section-title">Who I am</h2>
+        <h2 class="section-title" id="about-title">Who I am</h2>
     </div>
     <div class="about-grid">
         <div class="about-text">
             <p>
-                I am a <strong>Computer Engineering</strong> student at UCAM Universidad Católica San Antonio de Murcia,
-                with a solid international academic background. I completed a research exchange at
-                <strong>Kyungpook National University</strong> in South Korea, where I studied IT Engineering
-                with a focus on information security and systems.
+                I am a <strong>Computer Engineering</strong> student at UCAM Universidad Católica
+                San Antonio de Murcia, with a solid international academic background. I completed
+                a research exchange at <strong>Kyungpook National University</strong> in South Korea,
+                where I studied IT Engineering with a focus on information security and systems.
             </p>
             <p>
-                My professional interests lie at the intersection of <strong>project management</strong> and
-                <strong>cybersecurity</strong>. I aim to lead IT initiatives by combining rigorous technical knowledge
-                with strong organisational and cross-cultural communication skills developed across three countries
-                and four languages.
+                My professional interests lie at the intersection of <strong>project management</strong>
+                and <strong>cybersecurity</strong>. I aim to lead IT initiatives by combining rigorous
+                technical knowledge with strong organisational and cross-cultural communication skills
+                developed across three countries and four languages.
             </p>
         </div>
-        <div class="about-aside">
+        <aside aria-label="Quick facts">
             <div class="aside-item">
                 <div class="aside-key">Degree</div>
                 <div class="aside-val">Computer Engineering</div>
@@ -664,19 +861,20 @@
                 <div class="aside-key">Focus</div>
                 <div class="aside-val">Project Management &amp; Cybersecurity</div>
             </div>
-        </div>
+        </aside>
     </div>
 </section>
 
-<!-- ── EDUCATION ── -->
-<section class="section reveal" id="education">
+<!-- ══════════════════════════════════════
+     EDUCATION
+══════════════════════════════════════ -->
+<section class="section" id="education" aria-labelledby="education-title">
     <div class="section-head">
-        <span class="section-label">02 — Education</span>
-        <h2 class="section-title">Academic Background</h2>
+        <h2 class="section-title" id="education-title">Academic Background</h2>
     </div>
-    <div class="timeline">
+    <div role="list">
 
-        <div class="tl-item">
+        <div class="tl-item" role="listitem">
             <div class="tl-date">2024 — 2027</div>
             <div>
                 <div class="tl-school">UCAM Universidad Católica San Antonio de Murcia</div>
@@ -684,32 +882,38 @@
             </div>
         </div>
 
-        <div class="tl-item">
+        <div class="tl-item" role="listitem">
             <div class="tl-date">Aug 2025 — Jan 2026</div>
             <div>
                 <div class="tl-school">Kyungpook National University (KNU)</div>
                 <div class="tl-degree">Exchange Student &amp; Researcher — IT Engineering, Daegu, South Korea</div>
-                <button class="tl-toggle" onclick="toggleCourses('knu')">View relevant courses ↓</button>
-                <div class="tl-courses" id="knu">
+                <button class="tl-toggle"
+                        onclick="toggleCourses('knu')"
+                        aria-expanded="false"
+                        aria-controls="knu">View relevant courses</button>
+                <div class="tl-courses" id="knu" role="region" aria-label="KNU relevant courses">
                     Information Security · Digital Control Systems · Financial Futures Engineering ·
                     Database Management Systems · Algorithms · Automatic Control
                 </div>
             </div>
         </div>
 
-        <div class="tl-item">
+        <div class="tl-item" role="listitem">
             <div class="tl-date">Jan 2024 — Jul 2024</div>
             <div>
                 <div class="tl-school">UCAM (Exchange Semester)</div>
                 <div class="tl-degree">Exchange Student — Computer Engineering, Murcia, Spain</div>
-                <button class="tl-toggle" onclick="toggleCourses('ucam')">View relevant courses ↓</button>
-                <div class="tl-courses" id="ucam">
+                <button class="tl-toggle"
+                        onclick="toggleCourses('ucam-ex')"
+                        aria-expanded="false"
+                        aria-controls="ucam-ex">View relevant courses</button>
+                <div class="tl-courses" id="ucam-ex" role="region" aria-label="UCAM exchange relevant courses">
                     Operating Systems · Computer Networking · Advanced Visual Programming · Software Engineering
                 </div>
             </div>
         </div>
 
-        <div class="tl-item">
+        <div class="tl-item" role="listitem">
             <div class="tl-date">Sep 2021 — Dec 2023</div>
             <div>
                 <div class="tl-school">Università degli Studi di Modena e Reggio Emilia</div>
@@ -717,7 +921,7 @@
             </div>
         </div>
 
-        <div class="tl-item">
+        <div class="tl-item" role="listitem">
             <div class="tl-date">Sep 2016 — Jun 2021</div>
             <div>
                 <div class="tl-school">Liceo Scientifico M. Pantani</div>
@@ -728,11 +932,12 @@
     </div>
 </section>
 
-<!-- ── EXPERIENCE ── -->
-<section class="section reveal" id="experience">
+<!-- ══════════════════════════════════════
+     EXPERIENCE
+══════════════════════════════════════ -->
+<section class="section" id="experience" aria-labelledby="experience-title">
     <div class="section-head">
-        <span class="section-label">03 — Experience</span>
-        <h2 class="section-title">Work</h2>
+        <h2 class="section-title" id="experience-title">Work Experience</h2>
     </div>
 
     <div class="exp-item">
@@ -743,7 +948,7 @@
         <div>
             <div class="exp-company">Vodafone</div>
             <div class="exp-role">Sales Associate</div>
-            <ul class="exp-list">
+            <ul class="exp-list" aria-label="Responsibilities at Vodafone">
                 <li>Assisted private and business clients in identifying and selecting appropriate telecommunications plans, applying consultative sales techniques.</li>
                 <li>Managed customer relationships through the full sales cycle, from initial consultation to after-sales support.</li>
             </ul>
@@ -752,13 +957,22 @@
 
 </section>
 
-<!-- ── CERTIFICATIONS ── -->
-<section class="section reveal" id="certifications">
+<!-- ══════════════════════════════════════
+     CERTIFICATIONS
+══════════════════════════════════════ -->
+<section class="section" id="certifications" aria-labelledby="certifications-title">
     <div class="section-head">
-        <span class="section-label">04 — Certifications</span>
-        <h2 class="section-title">Credentials</h2>
+        <h2 class="section-title" id="certifications-title">Certifications</h2>
     </div>
     <table class="cert-table">
+        <caption class="sr-only">Professional certifications list</caption>
+        <thead>
+            <tr>
+                <th scope="col">Issuer</th>
+                <th scope="col">Certification</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
         <tbody>
             <tr>
                 <td><span class="cert-tag tag-british">British Council</span></td>
@@ -804,16 +1018,17 @@
     </table>
 </section>
 
-<!-- ── SKILLS ── -->
-<section class="section reveal" id="skills">
+<!-- ══════════════════════════════════════
+     SKILLS
+══════════════════════════════════════ -->
+<section class="section" id="skills" aria-labelledby="skills-title">
     <div class="section-head">
-        <span class="section-label">05 — Skills</span>
-        <h2 class="section-title">Expertise</h2>
+        <h2 class="section-title" id="skills-title">Expertise</h2>
     </div>
     <div class="skills-grid">
-        <div>
-            <div class="skill-group-label">Project Management</div>
-            <ul class="skill-list">
+        <div class="skill-group">
+            <div class="skill-group-label" aria-hidden="true">Project Management</div>
+            <ul class="skill-list" aria-label="Project Management skills">
                 <li>Team Coordination</li>
                 <li>Stakeholder Communication</li>
                 <li>Risk Management</li>
@@ -821,9 +1036,9 @@
                 <li>Cross-cultural Collaboration</li>
             </ul>
         </div>
-        <div>
-            <div class="skill-group-label">Cybersecurity</div>
-            <ul class="skill-list">
+        <div class="skill-group">
+            <div class="skill-group-label" aria-hidden="true">Cybersecurity</div>
+            <ul class="skill-list" aria-label="Cybersecurity skills">
                 <li>Network Security</li>
                 <li>Network Automation</li>
                 <li>Cisco CCNA</li>
@@ -831,9 +1046,9 @@
                 <li>Security Policies &amp; Compliance</li>
             </ul>
         </div>
-        <div>
-            <div class="skill-group-label">Technical</div>
-            <ul class="skill-list">
+        <div class="skill-group">
+            <div class="skill-group-label" aria-hidden="true">Technical</div>
+            <ul class="skill-list" aria-label="Technical skills">
                 <li>SQL &amp; PL/SQL</li>
                 <li>Oracle Database</li>
                 <li>C# &amp; OOP</li>
@@ -844,41 +1059,48 @@
     </div>
 </section>
 
-<!-- ── LANGUAGES ── -->
-<section class="section reveal" id="languages">
+<!-- ══════════════════════════════════════
+     LANGUAGES
+══════════════════════════════════════ -->
+<section class="section" id="languages" aria-labelledby="languages-title">
     <div class="section-head">
-        <span class="section-label">06 — Languages</span>
-        <h2 class="section-title">Spoken Languages</h2>
+        <h2 class="section-title" id="languages-title">Languages</h2>
     </div>
-    <div class="lang-list">
-        <div class="lang-item">
-            <span class="lang-name">Italian</span>
-            <div class="lang-bar-wrap"><div class="lang-bar-fill" style="width:100%"></div></div>
+    <div role="list">
+        <div class="lang-item" role="listitem">
+            <div class="lang-left">
+                <span class="lang-name">Italian</span>
+            </div>
             <span class="lang-level">Native</span>
         </div>
-        <div class="lang-item">
-            <span class="lang-name">English</span>
-            <div class="lang-bar-wrap"><div class="lang-bar-fill" style="width:88%"></div></div>
-            <span class="lang-level">Full Professional — IELTS C1</span>
+        <div class="lang-item" role="listitem">
+            <div class="lang-left">
+                <span class="lang-name">English</span>
+                <span class="lang-cert">IELTS C1</span>
+            </div>
+            <span class="lang-level">Full Professional</span>
         </div>
-        <div class="lang-item">
-            <span class="lang-name">French</span>
-            <div class="lang-bar-wrap"><div class="lang-bar-fill" style="width:82%"></div></div>
+        <div class="lang-item" role="listitem">
+            <div class="lang-left">
+                <span class="lang-name">French</span>
+            </div>
             <span class="lang-level">Full Professional Proficiency</span>
         </div>
-        <div class="lang-item">
-            <span class="lang-name">Spanish</span>
-            <div class="lang-bar-wrap"><div class="lang-bar-fill" style="width:68%"></div></div>
+        <div class="lang-item" role="listitem">
+            <div class="lang-left">
+                <span class="lang-name">Spanish</span>
+            </div>
             <span class="lang-level">Professional Working Proficiency</span>
         </div>
     </div>
 </section>
 
-<!-- ── CONTACT ── -->
-<section class="section reveal" id="contact">
+<!-- ══════════════════════════════════════
+     CONTACT
+══════════════════════════════════════ -->
+<section class="section" id="contact" aria-labelledby="contact-title">
     <div class="section-head">
-        <span class="section-label">07 — Contact</span>
-        <h2 class="section-title">Get in Touch</h2>
+        <h2 class="section-title" id="contact-title">Get in Touch</h2>
     </div>
     <p class="contact-big">
         Open to opportunities in project management, cybersecurity, and IT leadership.
@@ -908,8 +1130,10 @@
 </div>
 </main>
 
-<!-- ── FOOTER ── -->
-<footer>
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer role="contentinfo">
     <div class="footer-inner">
         <span>© 2026 Matteo Concio</span>
         <span>Murcia, Spain</span>
@@ -917,28 +1141,61 @@
 </footer>
 
 <script>
+    /* Course disclosure: toggles panel + ARIA state */
     function toggleCourses(id) {
-        const el  = document.getElementById(id);
-        const btn = el.previousElementSibling;
-        el.classList.toggle('open');
-        btn.textContent = el.classList.contains('open')
-            ? 'Hide courses ↑'
-            : 'View relevant courses ↓';
+        const panel = document.getElementById(id);
+        const btn = panel.previousElementSibling;
+        const open = panel.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
+        btn.textContent = open ? 'Hide courses' : 'View relevant courses';
     }
 
-    const observer = new IntersectionObserver(entries => {
+    /* Section reveal: fade-in only (distinct from hero's translateY entry) */
+    const sectionObserver = new IntersectionObserver(entries => {
         entries.forEach(e => {
-            if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+            if (e.isIntersecting) { e.target.classList.add('visible'); sectionObserver.unobserve(e.target); }
         });
-    }, { threshold: 0.07 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }, { threshold: 0.06 });
+    document.querySelectorAll('.section').forEach(el => sectionObserver.observe(el));
 
-    document.querySelectorAll('nav a[href^="#"]').forEach(a => {
+    /* Active nav highlight via scroll position */
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(s => { if (window.scrollY >= s.offsetTop - 90) current = s.id; });
+        navLinks.forEach(a => {
+            a.removeAttribute('aria-current');
+            if (a.getAttribute('href') === '#' + current) a.setAttribute('aria-current', 'true');
+        });
+    }, { passive: true });
+
+    /* Smooth scroll with offset for sticky header */
+    navLinks.forEach(a => {
         a.addEventListener('click', e => {
             e.preventDefault();
-            const t = document.querySelector(a.getAttribute('href'));
-            if (t) window.scrollTo({ top: t.offsetTop - 64, behavior: 'smooth' });
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target) window.scrollTo({ top: target.offsetTop - 64, behavior: 'smooth' });
+            navMenu.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
         });
+    });
+
+    /* Mobile hamburger */
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu   = document.getElementById('nav-menu');
+
+    navToggle.addEventListener('click', () => {
+        const open = navMenu.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', String(open));
+    });
+
+    /* Close mobile menu on outside click */
+    document.addEventListener('click', e => {
+        if (!e.target.closest('header')) {
+            navMenu.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+        }
     });
 </script>
 </body>
