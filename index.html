@@ -527,20 +527,24 @@
 
         /* ═══════════════════════════════
            SKILLS
-           Three equal columns separated
-           by vertical borders.
+           Column-gap colored with --border
+           acts as the visual separator —
+           no border on individual groups,
+           so no inset ambiguity.
         ═══════════════════════════════ */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
+            column-gap: 1px;
+            background: var(--border);
         }
 
         .skill-group {
+            background: var(--bg);
             padding: 0 40px;
-            border-right: 1px solid var(--border);
         }
         .skill-group:first-child { padding-left: 0; }
-        .skill-group:last-child  { padding-right: 0; border-right: none; }
+        .skill-group:last-child  { padding-right: 0; }
 
         .skill-group-label {
             font-size: 0.7rem;
@@ -609,28 +613,28 @@
             font-size: clamp(2rem, 4vw, 3.5rem);
             font-weight: 400;
             color: var(--text);
-            line-height: 1.2;
+            line-height: 1.3;
             margin-bottom: 48px;
             letter-spacing: -0.02em;
             max-width: 680px;
         }
 
-        /* Three equal columns — each item has 32px inset on both sides
-           of its column boundary; border sits on the left of items 2–3
-           so the inset is explicit on both sides of every separator. */
+        /* Column-gap colored with --border is the separator — no border
+           on individual items eliminates all inset ambiguity. */
         .contact-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
+            column-gap: 1px;
+            background: var(--border);
             border-top: 1px solid var(--border);
         }
 
         .contact-item {
-            padding: 28px 32px 28px 0;
+            background: var(--bg);
+            padding: 28px 40px;
         }
-        .contact-item + .contact-item {
-            padding-left: 32px;
-            border-left: 1px solid var(--border);
-        }
+        .contact-item:first-child { padding-left: 0; }
+        .contact-item:last-child  { padding-right: 0; }
 
         .contact-item-label {
             font-size: 0.72rem;
@@ -680,13 +684,15 @@
                 grid-template-columns: 1fr;
                 gap: 48px;
             }
-            .skills-grid { grid-template-columns: 1fr 1fr; }
-            .skill-group:nth-child(2) { border-right: none; }
+            /* 2-col layout: gap acts as vertical separator in row 1;
+               1px row-gap acts as horizontal separator before last group */
+            .skills-grid {
+                grid-template-columns: 1fr 1fr;
+                row-gap: 1px;
+            }
             .skill-group:last-child {
                 grid-column: 1 / -1;
                 padding: 32px 0 0;
-                border-right: none;
-                border-top: 1px solid var(--border);
             }
         }
 
@@ -711,28 +717,31 @@
             .tl-date,
             .exp-meta { padding-top: 0; }
 
-            /* Single-column skills */
-            .skills-grid { grid-template-columns: 1fr; }
-            .skill-group {
-                padding: 28px 0 0;
-                border-right: none;
-                border-top: 1px solid var(--border);
+            /* Single-column skills: column-gap becomes 0, row-gap separates */
+            .skills-grid {
+                grid-template-columns: 1fr;
+                column-gap: 0;
+                row-gap: 1px;
             }
-            .skill-group:first-child { padding-top: 0; border-top: none; }
-            .skill-group:last-child  { padding: 28px 0 0; border-top: 1px solid var(--border); }
+            .skill-group { padding: 28px 0; }
+            .skill-group:first-child { padding-top: 0; }
+            .skill-group:last-child  { padding: 28px 0; grid-column: auto; }
 
             /* Languages wrap */
             .lang-item { flex-wrap: wrap; }
 
-            /* Contact stacks */
+            /* Contact stacks: switch to row-gap as separator */
             .contact-big { font-size: 2rem; }
-            .contact-row { grid-template-columns: 1fr; }
-            .contact-item {
-                border-left: none;
-                border-bottom: 1px solid var(--border);
-                padding: 20px 0 !important;
+            .contact-row {
+                grid-template-columns: 1fr;
+                column-gap: 0;
+                row-gap: 1px;
             }
-            .contact-item:last-child { border-bottom: none; }
+            .contact-item {
+                padding: 20px 0;
+            }
+            .contact-item:first-child { padding-left: 0; }
+            .contact-item:last-child  { padding-right: 0; }
 
             /* Simplify cert table on small screens */
             .cert-table .cert-tag,
