@@ -11,6 +11,15 @@
         ],
         "createdAt": "2026-09-18T16:58:56.142Z",
         "reason": "Em-dashes appear exclusively in date ranges (2024 — 2027, Aug 2025 — Jan 2026, etc.) where they are typographically correct; not AI writing cadence"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "/Users/matteoconcio/Desktop/portfolio/index.html"
+        ],
+        "createdAt": "2026-09-19T15:58:47.731Z",
+        "reason": "skill-group border-top is only active at responsive breakpoints (max-width: 900px and 680px) where padding-top is explicitly 28-32px; the base padding-top:0 and the conditional border-top never co-exist on the same rendered element"
       }
     ]
   }
